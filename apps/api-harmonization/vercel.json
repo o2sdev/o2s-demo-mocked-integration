@@ -1,0 +1,18 @@
+{
+    "version": 2,
+    "buildCommand": "turbo run build",
+    "installCommand": "npm install --prefix=../..",
+    "outputDirectory": "dist",
+    "functions": {
+        "api/main.js": {
+            "memory": 1024,
+            "maxDuration": 30
+        }
+    },
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "api/main.js"
+        }
+    ]
+}
