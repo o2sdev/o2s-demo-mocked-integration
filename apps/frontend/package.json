@@ -3,7 +3,8 @@
     "version": "0.9.1",
     "private": true,
     "scripts": {
-        "prepare": "npx prisma generate && dotenv -e .env.local -- prisma migrate deploy && dotenv -e .env.local -- prisma db seed",
+        "prepare": "npx prisma generate",
+        "init": "dotenv -e .env.local -- prisma migrate deploy",
         "dev": "next dev --turbopack",
         "build": "dotenv -e .env.local -- prisma migrate deploy && next build",
         "start": "next start",
