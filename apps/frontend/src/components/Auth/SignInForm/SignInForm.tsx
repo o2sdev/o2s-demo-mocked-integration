@@ -5,6 +5,7 @@ import { CircleAlert, Eye, EyeOff } from 'lucide-react';
 import React, { useState } from 'react';
 import { object as YupObject, string as YupString } from 'yup';
 
+import { Alert } from '@o2s/ui/components/alert';
 import { Button } from '@o2s/ui/components/button';
 import { Input } from '@o2s/ui/components/input';
 import { Label } from '@o2s/ui/components/label';
@@ -57,6 +58,15 @@ export const SignInForm: React.FC<SignInFormProps> = ({ providers, labels, onSig
                     </Typography>
                 )}
             </div>
+
+            <Alert variant="default" className="flex flex-col gap-2">
+                To sign in to the demo, you can use the following credentials:
+                <Typography variant="small">
+                    username: jane@example.com
+                    <br />
+                    password: admin
+                </Typography>
+            </Alert>
 
             <Formik<FormValues>
                 initialValues={{
