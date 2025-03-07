@@ -7,19 +7,30 @@ export const mapPage = (
     footer: CMS.Model.Footer.Footer,
     page: CMS.Model.Page.Page,
     mainLocale: string,
-    alternatePages: { page: CMS.Model.Page.Page; locale: string }[] = [],
+    alternatePages: CMS.Model.Page.Page[] = [],
 ): Page => {
     const alternativeUrls: { [key: string]: string } = {
         [mainLocale]: page.slug,
     };
 
-    alternatePages.forEach(({ page: alternatePage, locale }) => {
-        alternativeUrls[locale] = alternatePage.slug;
+    const locales = [...alternatePages.map(({ locale }) => locale), mainLocale];
+
+    alternatePages.forEach((p) => {
+        alternativeUrls[p.locale] = p.slug;
     });
 
     return {
-        seo: {
-            noIndex: page.noIndex,
+        meta: {
+            seo: {
+                title: page.seo.title,
+                description: page.seo.description,
+                keywords: page.seo.keywords,
+                image: page.seo.image,
+                noIndex: page.seo.noIndex,
+                noFollow: page.seo.noFollow,
+            },
+            parent: page.parent,
+            locales,
         },
         common: {
             header,
@@ -28,6 +39,7 @@ export const mapPage = (
         data: {
             alternativeUrls,
             template: page.template,
+            hasOwnTitle: page.hasOwnTitle,
         },
     };
 };

@@ -1,4 +1,4 @@
-import { CMS } from '@o2s/framework/modules';
+import { CMS, Models } from '@o2s/framework/modules';
 
 import {
     Faq,
@@ -9,6 +9,7 @@ import {
     PaymentsSummary,
     TicketDetails,
     TicketList,
+    TicketRecent,
     UserAccount,
 } from '@o2s/api-harmonization/components';
 
@@ -22,11 +23,15 @@ export class Init {
 export class Page {
     common!: PageCommon;
     data?: PageData;
-    seo!: SEO;
+    meta!: Metadata;
 }
 
-export class SEO {
-    noIndex!: boolean;
+export class Metadata {
+    seo!: Models.SEO.Page;
+    parent!: {
+        slug: string;
+    };
+    locales!: string[];
 }
 
 export class PageCommon {
@@ -39,6 +44,7 @@ export class PageData {
         [key: string]: string;
     };
     template!: CMS.Model.Page.PageTemplate;
+    hasOwnTitle!: boolean;
 }
 
 export type Components =
@@ -50,4 +56,5 @@ export type Components =
     | InvoiceList.Model.InvoiceListComponent['__typename']
     | PaymentsSummary.Model.PaymentsSummaryComponent['__typename']
     | PaymentsHistory.Model.PaymentsHistoryComponent['__typename']
-    | UserAccount.Model.UserAccountComponent['__typename'];
+    | UserAccount.Model.UserAccountComponent['__typename']
+    | TicketRecent.Model.TicketRecentComponent['__typename'];
