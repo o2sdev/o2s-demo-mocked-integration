@@ -13,6 +13,7 @@ import { routing } from '@/i18n';
 import { GlobalProvider } from '@/providers/GlobalProvider';
 
 import '@/styles/global.scss';
+import { Analytics } from '@vercel/analytics/react'
 
 const inter = Inter({
     subsets: ['latin-ext'],
@@ -51,6 +52,8 @@ export default async function RootLayout({ children, params }: Props) {
                         {children}
                     </GlobalProvider>
                 </SessionProvider>
+
+                <Analytics />
             </body>
         </html>
     );

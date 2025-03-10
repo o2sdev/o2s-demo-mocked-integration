@@ -21,6 +21,7 @@
         "@o2s/api-harmonization": "*",
         "@o2s/ui": "*",
         "@prisma/client": "^6.3.1",
+        "@vercel/analytics": "^1.5.0",
         "bcryptjs": "^2.4.3",
         "class-variance-authority": "^0.7.1",
         "dotenv-cli": "^8.0.0",
@@ -40,10 +41,10 @@
         "zod": "^3.23.8"
     },
     "devDependencies": {
+        "@next/bundle-analyzer": "^15.0.4",
         "@o2s/eslint-config": "*",
         "@o2s/prettier-config": "*",
         "@o2s/typescript-config": "*",
-        "@next/bundle-analyzer": "^15.0.4",
         "@svgr/webpack": "^8.1.0",
         "@trivago/prettier-plugin-sort-imports": "^4.3.0",
         "@types/bcryptjs": "^2.4.6",
