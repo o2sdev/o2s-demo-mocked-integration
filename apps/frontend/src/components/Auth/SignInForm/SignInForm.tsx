@@ -59,7 +59,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({ providers, labels, onSig
                 )}
             </div>
 
-            <Alert variant="default" className="flex flex-col gap-2">
+            <Alert variant="destructive" className="flex flex-col gap-2">
                 To sign in to the demo, you can use the following credentials:
                 <Typography variant="small">
                     username: jane@example.com
