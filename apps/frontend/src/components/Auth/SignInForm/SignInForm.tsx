@@ -96,6 +96,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({ providers, labels, onSig
                                             aria-invalid={!!(touched.username && errors.username)}
                                             name={field.name}
                                             value={field.value}
+                                            disabled={isSubmitting}
                                             onChange={field.onChange}
                                             onBlur={field.onBlur}
                                         />
@@ -121,6 +122,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({ providers, labels, onSig
                                             placeholder={labels.password.placeholder}
                                             name={field.name}
                                             value={field.value}
+                                            disabled={isSubmitting}
                                             aria-invalid={!!(touched.password && errors.password)}
                                             onChange={field.onChange}
                                             onBlur={field.onBlur}
