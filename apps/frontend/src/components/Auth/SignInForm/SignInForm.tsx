@@ -35,9 +35,9 @@ const MOCK: { [key: string]: { loginHint: string; username: string; password: st
         password: 'Passwort',
     },
     pl: {
-        loginHint: 'To sign in to the demo, you can use the following credentials:',
-        username: 'Username',
-        password: 'Password',
+        loginHint: 'Aby zalogować się do demo, możesz użyć następujących danych logowania:',
+        username: 'Użytkownik',
+        password: 'Hasło',
     },
 };
 
