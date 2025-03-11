@@ -2,6 +2,7 @@
 
 import { Field, FieldProps, Form, Formik } from 'formik';
 import { CircleAlert, Eye, EyeOff } from 'lucide-react';
+import { useLocale } from 'next-intl';
 import React, { useState } from 'react';
 import { object as YupObject, string as YupString } from 'yup';
 
@@ -22,7 +23,27 @@ const MAX_USERNAME_CHARS = 64;
 const MIN_PASSWORD_CHARS = 4;
 const MAX_PASSWORD_CHARS = 64;
 
+const MOCK: { [key: string]: { loginHint: string; username: string; password: string } } = {
+    en: {
+        loginHint: 'To sign in to the demo, you can use the following credentials:',
+        username: 'Username',
+        password: 'Password',
+    },
+    de: {
+        loginHint: 'Um sich beim Demo anzumelden, können Sie die folgenden Anmeldedaten verwenden:',
+        username: 'Benutzername',
+        password: 'Passwort',
+    },
+    pl: {
+        loginHint: 'To sign in to the demo, you can use the following credentials:',
+        username: 'Username',
+        password: 'Password',
+    },
+};
+
 export const SignInForm: React.FC<SignInFormProps> = ({ providers, labels, onSignIn }) => {
+    const locale = useLocale();
+
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -60,11 +81,11 @@ export const SignInForm: React.FC<SignInFormProps> = ({ providers, labels, onSig
             </div>
 
             <Alert variant="destructive" className="flex flex-col gap-2">
-                To sign in to the demo, you can use the following credentials:
+                {(MOCK[locale] || MOCK.en)!.loginHint}
                 <Typography variant="small">
-                    username: jane@example.com
+                    {(MOCK[locale] || MOCK.en)!.username}: jane@example.com
                     <br />
-                    password: admin
+                    {(MOCK[locale] || MOCK.en)!.password}: admin
                 </Typography>
             </Alert>
 
