@@ -1,5 +1,12 @@
 {
     "version": 2,
+    "public": false,
+    "github": {
+        "enabled": false
+    },
+    "git": {
+        "deploymentEnabled": false
+    },
     "buildCommand": "turbo run build",
     "installCommand": "npm install --prefix=../..",
     "outputDirectory": "dist",
