@@ -1,4 +1,5 @@
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { SessionProvider } from 'next-auth/react';
 import { setRequestLocale } from 'next-intl/server';
 import { Inter } from 'next/font/google';
@@ -68,6 +69,7 @@ export default async function RootLayout({ children, params }: Props) {
                 </SessionProvider>
 
                 <Analytics />
+                <SpeedInsights />
             </body>
         </html>
     );
