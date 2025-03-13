@@ -3,7 +3,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { SessionProvider } from 'next-auth/react';
 import { setRequestLocale } from 'next-intl/server';
 import { Inter } from 'next/font/google';
-import { headers } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 import React from 'react';
 
@@ -36,6 +36,8 @@ export default async function RootLayout({ children, params }: Props) {
     const headersList = await headers();
     const session = await auth();
 
+    const cookieStore = await cookies();
+
     const { locale } = await params;
 
     if (!routing.locales.includes(locale)) {
@@ -59,7 +61,10 @@ export default async function RootLayout({ children, params }: Props) {
                 <SessionProvider key={session?.user?.id} session={session} refetchOnWindowFocus={false}>
                     <GlobalProvider config={init} locale={locale}>
                         <div className="flex flex-col min-h-dvh">
-                            <Header headerData={init.common.header} />
+                            <Header
+                                headerData={init.common.header}
+                                isDemoHidden={cookieStore.get('demoHidden')?.value === 'true'}
+                            />
 
                             <div className="flex flex-col grow">{children}</div>
 
