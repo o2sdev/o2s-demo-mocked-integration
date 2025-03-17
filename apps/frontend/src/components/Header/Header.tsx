@@ -29,8 +29,8 @@ const MOCK: { [key: string]: { info: string; link: string } } = {
         link: 'do it here',
     },
     de: {
-        info: 'Sie sehen derzeit eine Demoversion, in der Teile der App möglicherweise noch nicht vollständig fertiggestellt sind. Wenn Sie Probleme bemerken oder uns Ihr Feedback geben möchten, können Sie',
-        link: 'das hier tun',
+        info: 'Du siehst derzeit eine Demoversion, in der einige Teile der App möglicherweise noch nicht vollständig fertiggestellt sind. Falls du Probleme bemerkst oder uns dein Feedback geben möchtest, kannst du dies',
+        link: 'hier tun',
     },
     pl: {
         info: 'Obecnie przeglądasz wersję demonstracyjną, gdzie niektóre części aplikacji mogą nie być jeszcze w pełni gotowe. Jeśli zauważysz jakieś problemy lub chcesz przekazać nam swoją opinię, możesz',
