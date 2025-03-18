@@ -1,7 +1,8 @@
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { SessionProvider } from 'next-auth/react';
-import { setRequestLocale } from 'next-intl/server';
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages, setRequestLocale } from 'next-intl/server';
 import { Inter } from 'next/font/google';
 import { cookies, headers } from 'next/headers';
 import { notFound } from 'next/navigation';
@@ -54,23 +55,27 @@ export default async function RootLayout({ children, params }: Props) {
 
     setRequestLocale(locale);
 
+    const messages = await getMessages();
+
     return (
         <html lang={locale} className={inter.className}>
             <body>
                 {/*@see https://github.com/nextauthjs/next-auth/issues/9504#issuecomment-2516665386*/}
                 <SessionProvider key={session?.user?.id} session={session} refetchOnWindowFocus={false}>
-                    <GlobalProvider config={init} locale={locale}>
-                        <div className="flex flex-col min-h-dvh">
-                            <Header
-                                headerData={init.common.header}
-                                isDemoHidden={cookieStore.get('demoHidden')?.value === 'true'}
-                            />
+                    <NextIntlClientProvider messages={messages}>
+                        <GlobalProvider config={init} locale={locale}>
+                            <div className="flex flex-col min-h-dvh">
+                                <Header
+                                    headerData={init.common.header}
+                                    isDemoHidden={cookieStore.get('demoHidden')?.value === 'true'}
+                                />
 
-                            <div className="flex flex-col grow">{children}</div>
+                                <div className="flex flex-col grow">{children}</div>
 
-                            <Footer data={init.common.footer} />
-                        </div>
-                    </GlobalProvider>
+                                <Footer data={init.common.footer} />
+                            </div>
+                        </GlobalProvider>
+                    </NextIntlClientProvider>
                 </SessionProvider>
 
                 <Analytics />

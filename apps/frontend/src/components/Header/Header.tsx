@@ -3,7 +3,7 @@
 import Cookies from 'js-cookie';
 import { X } from 'lucide-react';
 import { useSession } from 'next-auth/react';
-import { useLocale } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import React, { useState } from 'react';
 
@@ -23,26 +23,11 @@ import { MobileNavigation } from './MobileNavigation/MobileNavigation';
 import { NotificationInfo } from './NotificationInfo/NotificationInfo';
 import { UserInfo } from './UserInfo/UserInfo';
 
-const MOCK: { [key: string]: { info: string; link: string } } = {
-    en: {
-        info: 'You are currently viewing a demo version, where parts of the app may not be fully ready yet. If you notice any issues or want to give us your feedback, you can',
-        link: 'do it here',
-    },
-    de: {
-        info: 'Du siehst derzeit eine Demoversion, in der einige Teile der App möglicherweise noch nicht vollständig fertiggestellt sind. Falls du Probleme bemerkst oder uns dein Feedback geben möchtest, kannst du dies',
-        link: 'hier tun',
-    },
-    pl: {
-        info: 'Obecnie przeglądasz wersję demonstracyjną, gdzie niektóre części aplikacji mogą nie być jeszcze w pełni gotowe. Jeśli zauważysz jakieś problemy lub chcesz przekazać nam swoją opinię, możesz',
-        link: 'zrobić to tutaj',
-    },
-};
-
 export const Header: React.FC<HeaderProps> = ({ headerData, isDemoHidden, children }) => {
     const session = useSession();
     const isSignedIn = session?.status === 'authenticated';
 
-    const locale = useLocale();
+    const t = useTranslations();
 
     const [demoHidden, setDemoHidden] = useState(isDemoHidden);
 
@@ -98,13 +83,13 @@ export const Header: React.FC<HeaderProps> = ({ headerData, isDemoHidden, childr
                         <div className="px-4 md:px-6 py-2 ml-auto mr-auto w-full md:max-w-7xl">
                             <div className="flex gap-4 items-center justify-between">
                                 <Typography variant="small">
-                                    {(MOCK[locale] || MOCK.en)!.info}{' '}
+                                    {t('demoBar.info')}{' '}
                                     <Link
                                         href="https://github.com/o2sdev/openselfservice/issues"
                                         target="_blank"
                                         className="text-primary-foreground underline"
                                     >
-                                        {(MOCK[locale] || MOCK.en)!.link}
+                                        {t('demoBar.link')}
                                     </Link>
                                     .
                                 </Typography>
@@ -112,7 +97,7 @@ export const Header: React.FC<HeaderProps> = ({ headerData, isDemoHidden, childr
                                 <CollapsibleTrigger asChild>
                                     <Button variant="ghost" size="sm" className="w-9 p-0 shrink-0">
                                         <X className="h-4 w-4" />
-                                        <span className="sr-only">Close</span>
+                                        <span className="sr-only">{t('general.close')}</span>
                                     </Button>
                                 </CollapsibleTrigger>
                             </div>

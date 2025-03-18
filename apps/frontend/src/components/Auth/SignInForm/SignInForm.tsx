@@ -2,7 +2,7 @@
 
 import { Field, FieldProps, Form, Formik } from 'formik';
 import { CircleAlert, Eye, EyeOff } from 'lucide-react';
-import { useLocale } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import React, { useState } from 'react';
 import { object as YupObject, string as YupString } from 'yup';
 
@@ -23,26 +23,8 @@ const MAX_USERNAME_CHARS = 64;
 const MIN_PASSWORD_CHARS = 4;
 const MAX_PASSWORD_CHARS = 64;
 
-const MOCK: { [key: string]: { loginHint: string; username: string; password: string } } = {
-    en: {
-        loginHint: 'To sign in to the demo, you can use the following credentials:',
-        username: 'Username',
-        password: 'Password',
-    },
-    de: {
-        loginHint: 'Um sich beim Demo anzumelden, können Sie die folgenden Anmeldedaten verwenden:',
-        username: 'Benutzername',
-        password: 'Passwort',
-    },
-    pl: {
-        loginHint: 'Aby zalogować się do demo, możesz użyć następujących danych logowania:',
-        username: 'Użytkownik',
-        password: 'Hasło',
-    },
-};
-
 export const SignInForm: React.FC<SignInFormProps> = ({ providers, labels, onSignIn }) => {
-    const locale = useLocale();
+    const t = useTranslations();
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [passwordVisible, setPasswordVisible] = useState(false);
@@ -81,11 +63,11 @@ export const SignInForm: React.FC<SignInFormProps> = ({ providers, labels, onSig
             </div>
 
             <Alert variant="destructive" className="flex flex-col gap-2">
-                {(MOCK[locale] || MOCK.en)!.loginHint}
+                {t('loginHint.title')}
                 <Typography variant="small">
-                    {(MOCK[locale] || MOCK.en)!.username}: jane@example.com
+                    {t('loginHint.username')}: jane@example.com
                     <br />
-                    {(MOCK[locale] || MOCK.en)!.password}: admin
+                    {t('loginHint.password')}: admin
                 </Typography>
             </Alert>
 

@@ -1,0 +1,14 @@
+{
+    "general": {
+        "close": "Close"
+    },
+    "demoBar": {
+        "info": "Obecnie przeglądasz wersję demonstracyjną, gdzie niektóre części aplikacji mogą nie być jeszcze w pełni gotowe. Jeśli zauważysz jakieś problemy lub chcesz przekazać nam swoją opinię, możesz",
+        "link": "zrobić to tutaj"
+    },
+    "loginHint": {
+        "title": "Aby zalogować się do demo, możesz użyć następujących danych logowania:",
+        "username": "Użytkownik",
+        "password": "Hasło"
+    }
+}
