@@ -1,8 +1,12 @@
 {
-    "extends": ["//"],
+    "extends": [
+        "//"
+    ],
     "tasks": {
         "dev": {
-            "dependsOn": ["build"]
+            "dependsOn": [
+                "build"
+            ]
         },
         "start": {
             "env": [

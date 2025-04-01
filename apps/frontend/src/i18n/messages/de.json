@@ -1,6 +1,7 @@
 {
     "general": {
-        "close": "Close"
+        "close": "Schließen",
+        "comingSoon": "Diese Funktion ist in Kürze verfügbar!"
     },
     "demoBar": {
         "info": "Du siehst derzeit eine Demoversion, in der einige Teile der App möglicherweise noch nicht vollständig fertiggestellt sind. Falls du Probleme bemerkst oder uns dein Feedback geben möchtest, kannst du dies",
