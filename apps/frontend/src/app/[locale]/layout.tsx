@@ -4,9 +4,11 @@ import { SessionProvider } from 'next-auth/react';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { Inter } from 'next/font/google';
-import { cookies, headers } from 'next/headers';
+import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 import React from 'react';
+
+import { TooltipProvider } from '@o2s/ui/components/tooltip';
 
 import { sdk } from '@/api/sdk';
 
@@ -16,8 +18,8 @@ import { routing } from '@/i18n';
 
 import { GlobalProvider } from '@/providers/GlobalProvider';
 
-import { Footer } from '@/components/Footer/Footer';
-import { Header } from '@/components/Header/Header';
+import { Footer } from '@/containers/Footer/Footer';
+import { Header } from '@/containers/Header/Header';
 
 import '@/styles/global.scss';
 
@@ -36,8 +38,6 @@ interface Props {
 export default async function RootLayout({ children, params }: Props) {
     const headersList = await headers();
     const session = await auth();
-
-    const cookieStore = await cookies();
 
     const { locale } = await params;
 
@@ -64,16 +64,15 @@ export default async function RootLayout({ children, params }: Props) {
                 <SessionProvider key={session?.user?.id} session={session} refetchOnWindowFocus={false}>
                     <NextIntlClientProvider messages={messages}>
                         <GlobalProvider config={init} locale={locale}>
-                            <div className="flex flex-col min-h-dvh">
-                                <Header
-                                    headerData={init.common.header}
-                                    isDemoHidden={cookieStore.get('demoHidden')?.value === 'true'}
-                                />
+                            <TooltipProvider>
+                                <div className="flex flex-col min-h-dvh">
+                                    <Header headerData={init.common.header} />
 
-                                <div className="flex flex-col grow">{children}</div>
+                                    <div className="flex flex-col grow">{children}</div>
 
-                                <Footer data={init.common.footer} />
-                            </div>
+                                    <Footer data={init.common.footer} />
+                                </div>
+                            </TooltipProvider>
                         </GlobalProvider>
                     </NextIntlClientProvider>
                 </SessionProvider>
