@@ -1,6 +1,6 @@
 {
     "name": "@o2s/frontend",
-    "version": "0.16.0",
+    "version": "0.18.0",
     "private": true,
     "scripts": {
         "prepare": "npx prisma generate",
@@ -30,7 +30,7 @@
         "formik": "^2.4.6",
         "js-cookie": "^3.0.5",
         "jsonwebtoken": "^9.0.2",
-        "markdown-to-jsx": "^7.7.3",
+        "markdown-to-jsx": "^7.7.4",
         "next": "15.2.4",
         "next-auth": "^5.0.0-beta.25",
         "next-compose-plugins": "^2.2.1",
@@ -58,7 +58,7 @@
         "@types/react-dom": "19.0.0",
         "dotenv": "^16.4.7",
         "eslint": "^8",
-        "eslint-config-next": "15.2.1",
+        "eslint-config-next": "15.2.4",
         "postcss": "^8",
         "prettier": "^3.5.3",
         "prisma": "^6.5.0",
