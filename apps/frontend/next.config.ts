@@ -21,20 +21,20 @@ const nextConfig: NextConfig = {
                 protocol: 'https',
                 hostname: 'raw.githubusercontent.com',
             },
+            {
+                protocol: 'https',
+                hostname: 'picsum.photos',
+            },
+            {
+                protocol: 'https',
+                hostname: 'strapi-oss.dev.hycom.pl',
+            },
         ],
     },
     sassOptions: {
         silenceDeprecations: ['legacy-js-api'],
     },
     experimental: {
-        turbo: {
-            rules: {
-                '*.svg': {
-                    loaders: ['@svgr/webpack'],
-                    as: '*.js',
-                },
-            },
-        },
         // dynamicIO: true,
         // cacheLife: {
         //     render: {
@@ -43,6 +43,14 @@ const nextConfig: NextConfig = {
         //         expire: 5,
         //     },
         // },
+    },
+    turbopack: {
+        rules: {
+            '*.svg': {
+                loaders: ['@svgr/webpack'],
+                as: '*.js',
+            },
+        },
     },
     webpack(config) {
         config.module.rules.push({

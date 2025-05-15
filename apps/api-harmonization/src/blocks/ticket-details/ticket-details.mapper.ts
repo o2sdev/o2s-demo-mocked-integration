@@ -8,11 +8,12 @@ export const mapTicketDetails = (
     ticket: Tickets.Model.Ticket,
     cms: CMS.Model.TicketDetailsBlock.TicketDetailsBlock,
     locale: string,
+    timezone: string,
 ): TicketDetailsBlock => {
     return {
         __typename: 'TicketDetailsBlock',
         id: cms.id,
-        data: mapTicket(ticket, cms, locale),
+        data: mapTicket(ticket, cms, locale, timezone),
     };
 };
 
@@ -20,6 +21,7 @@ export const mapTicket = (
     ticket: Tickets.Model.Ticket,
     cms: CMS.Model.TicketDetailsBlock.TicketDetailsBlock,
     locale: string,
+    timezone: string,
 ): Ticket => {
     return {
         id: {
@@ -61,22 +63,15 @@ export const mapTicket = (
                 ];
             }, [] as TicketProperty[]),
         },
-        createdAt: formatDateRelative(ticket.createdAt, locale, cms.labels.today, cms.labels.yesterday),
-        updatedAt: formatDateRelative(ticket.updatedAt, locale, cms.labels.today, cms.labels.yesterday),
+        createdAt: formatDateRelative(ticket.createdAt, locale, cms.labels.today, cms.labels.yesterday, timezone),
+        updatedAt: formatDateRelative(ticket.updatedAt, locale, cms.labels.today, cms.labels.yesterday, timezone),
         comments: {
             title: cms.commentsTitle,
             items:
                 ticket.comments?.map((comment) => ({
                     ...comment,
-                    date: formatDateRelative(comment.date, locale, cms.labels.today, cms.labels.yesterday),
-                    author: {
-                        ...comment.author,
-                        initials: comment.author.name
-                            .split(' ')
-                            .map((name) => name[0])
-                            .join('')
-                            .toUpperCase(),
-                    },
+                    date: formatDateRelative(comment.date, locale, cms.labels.today, cms.labels.yesterday, timezone),
+                    author: comment.author,
                 })) || [],
         },
         attachments: {
@@ -84,15 +79,8 @@ export const mapTicket = (
             items:
                 ticket.attachments?.map((attachment) => ({
                     ...attachment,
-                    date: formatDateRelative(attachment.date, locale, cms.labels.today, cms.labels.yesterday),
-                    author: {
-                        ...attachment.author,
-                        initials: attachment.author.name
-                            .split(' ')
-                            .map((name) => name[0])
-                            .join('')
-                            .toUpperCase(),
-                    },
+                    date: formatDateRelative(attachment.date, locale, cms.labels.today, cms.labels.yesterday, timezone),
+                    author: attachment.author,
                     ariaLabel: attachment.ariaLabel,
                 })) || [],
         },

@@ -50,7 +50,7 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
                 type: 'modify',
                 path: 'src/app.module.ts',
                 pattern: /(\/\/ BLOCK IMPORT)/g,
-                template: `import { {{ pascalCase name }}BlockModule } from '@o2s/api/blocks/{{kebabCase name}}/{{kebabCase name}}.module';\n// BLOCK IMPORT`,
+                template: `import { {{ pascalCase name }}BlockModule } from '@o2s/api-harmonization/blocks/{{kebabCase name}}/{{kebabCase name}}.module';\n// BLOCK IMPORT`,
             },
             {
                 type: 'modify',
@@ -63,6 +63,18 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
                 path: 'src/blocks/index.ts',
                 pattern: /(\/\/ BLOCK EXPORT)/g,
                 template: `export * as {{ pascalCase name }} from './{{kebabCase name}}';\n// BLOCK EXPORT`,
+            },
+            {
+                type: 'modify',
+                path: 'src/modules/page/page.model.ts',
+                pattern: /(\/\/ BLOCK IMPORT)/g,
+                template: `{{ pascalCase name }},\n// BLOCK IMPORT`,
+            },
+            {
+                type: 'modify',
+                path: 'src/modules/page/page.model.ts',
+                pattern: /(\/\/ BLOCK REGISTER)/g,
+                template: `| {{ pascalCase name }}.Model.{{ pascalCase name }}Block['__typename']\n        // BLOCK REGISTER`,
             },
         ],
     });

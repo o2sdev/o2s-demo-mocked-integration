@@ -1,3 +1,5 @@
+[![Open Self Service - open-source development kit for composable Customer Portals](apps/docs/static/img/o2s-gh-cover.png)](https://www.openselfservice.com)
+
 # Open Self Service (O2S)
 
 **Framework for building composable customer self-service portals.**
@@ -7,7 +9,8 @@ Its flexibility allows for many customizations and lets you build various types 
 
 ## 🚀 Key Features
 
-- **Composable Frontend** – Robust Next.js-based frontend including basic customer portal pages.
+- **Composable** – In short: **API-agnostic**. Compose customer experience by combining multiple "backend capabilities" into seamless, fully decoupled frontend.
+- **Next.js Frontend Starter** – Robust Next.js-based frontend including basic customer portal pages and content management capabilities.
 - **API Harmonization Server** – **Integration layer** for data aggregation, orchestration and normalization. Provides vendor lock-in safeness and better maintainability.
 - **TypeScript SDK** – Easily interact with the Harmonization Server in the frontend app or any web, mobile, other TS-based apps.
 - **Pre-built Integrations** – Ready integrations so that you can set up your solution faster.
@@ -42,7 +45,7 @@ cd apps/api-harmonization && npm run dev  # Start API Harmonization Server
 cd apps/frontend && npm run dev  # Start Next.js Frontend
 ```
 
-For more details, check the **[Running the project](https://www.openselfservice.com/docs/running-the-project)** guide.
+For more details, check the **[Running the project](https://www.openselfservice.com/docs/getting-started/running-locally)** guide.
 
 ## 🏗️ Project Structure
 
@@ -57,26 +60,29 @@ O2S follows a **monorepo structure** using **Turborepo** for managing apps and i
   /ui    # UI component library (shadcn/ui, Tailwind)
 ```
 
-For a detailed breakdown, visit **[Project structure](https://www.openselfservice.com/docs/project-structure)**.
+For a detailed breakdown, visit **[Project structure](https://www.openselfservice.com/docs/getting-started/project-structure)**.
+
+## 🖥️ Demo app
+[![O2S Demo](apps/docs/static/img/o2s-gh-demo.png)](https://demo.openselfservice.com)
 
 ## 🔌 Available Integrations
 
 O2S includes pre-built integrations and allows you to extend functionality as needed.
 
-| Integration                | Status         |
-| -------------------------- | -------------- |
-| **StrapiCMS**              | ✅ Available   |
-| **NextAuth**               | ✅ Available   |
-| **Redis cache**            | ✅ Available   |
-| **Search (Elasticsearch)** | 🔄 In progress |
-| **CRM (TBD)**              | 🔄 Planned     |
-| **ERP / Commerce (TBD)**   | 🔄 Planned     |
+| Integration              | Status         |
+|--------------------------| -------------- |
+| **StrapiCMS**            | ✅ Available   |
+| **NextAuth**             | ✅ Available   |
+| **Redis cache**          | ✅ Available   |
+| **Search (Algolia)**     | 🔄 In progress |
+| **CRM (TBD)**            | 🔄 Planned     |
+| **ERP / Commerce (TBD)** | 🔄 Planned     |
 
 ## 🔥 Why Open Self Service?
 
-- **Fully composable** – Build customer portals without backend constraints.
+- **Fully composable** – Integrate multiple backend services and build your solution by combining their capabilities.
 - **Headless & API-first** – Integrate multiple services seamlessly.
-- **Future-proof** – Swap backends without breaking the frontend.
+- **Future-proof** – Build backend-agnostic customer portals. Swap backends without breaking the frontend.
 - **Modern stack** – Built with **Next.js, shadcn/ui, TypeScript, NestJS**.
 
 ## 🤝 Contributing
@@ -87,8 +93,10 @@ If you’d like to contribute, please check the **[Contribution Guide](CONTRIBUT
 ## 📩 Stay Updated
 
 - Website: [openselfservice.com](https://www.openselfservice.com)
+- LinkedIn: [/company/open-self-service/](https://www.linkedin.com/company/open-self-service/)
 - Twitter/X: [@openselfservice](https://twitter.com/openselfservice)
-- GitHub Discussions: [Join the conversation](https://github.com/orgs/o2sdev/discussions)
+- Discord: [Join our community](https://discord.gg/4R568nZgsT)
+- GitHub Discussions: [Join the conversation](https://github.com/o2sdev/openselfservice/discussions)
 
 ## 📜 License
 

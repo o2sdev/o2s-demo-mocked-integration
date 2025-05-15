@@ -7,8 +7,10 @@ import * as React from 'react';
 
 import { cn } from '@o2s/ui/lib/utils';
 
+import { Label } from '@o2s/ui/components/label';
+
 const selectVariants = cva(
-    'flex h-10 w-full items-center justify-between rounded-md border px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
+    'flex h-10 w-full items-center justify-between rounded-md border px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
     {
         variants: {
             variant: {
@@ -119,7 +121,7 @@ const SelectItem = React.forwardRef<
     <SelectPrimitive.Item
         ref={ref}
         className={cn(
-            'relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+            'relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-hidden focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50',
             className,
         )}
         {...props}
@@ -143,6 +145,40 @@ const SelectSeparator = React.forwardRef<
 ));
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
 
+interface SelectWithTitleProps {
+    label: string | React.ReactNode;
+    id: string;
+    labelClassName?: string;
+    value?: string;
+    defaultValue?: string;
+    onValueChange?: (value: string) => void;
+    open?: boolean;
+    defaultOpen?: boolean;
+    onOpenChange?: (open: boolean) => void;
+    dir?: 'ltr' | 'rtl';
+    name?: string;
+    disabled?: boolean;
+    required?: boolean;
+    children: React.ReactNode;
+}
+
+const SelectWithTitle = React.forwardRef<HTMLDivElement, SelectWithTitleProps>(
+    ({ label, labelClassName, children, id, ...props }, ref) => {
+        const generatedId = React.useId();
+        const selectId = id || generatedId;
+
+        return (
+            <div className="grid gap-2" ref={ref}>
+                <Label htmlFor={selectId} className={labelClassName}>
+                    {label}
+                </Label>
+                <Select {...props}>{children}</Select>
+            </div>
+        );
+    },
+);
+SelectWithTitle.displayName = 'SelectWithTitle';
+
 export {
     Select,
     SelectGroup,
@@ -154,4 +190,5 @@ export {
     SelectSeparator,
     SelectScrollUpButton,
     SelectScrollDownButton,
+    SelectWithTitle,
 };

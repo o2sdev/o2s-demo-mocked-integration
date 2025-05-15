@@ -1,11 +1,10 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import { useLocale } from 'next-intl';
+import React from 'react';
 
 import { Models } from '@o2s/framework/modules';
 
-import { Link } from '@o2s/ui/components/link';
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -32,20 +31,19 @@ export function DesktopNavigation({
     items,
 }: DesktopNavigationProps) {
     const session = useSession();
-    const isSignedIn = session?.status === 'authenticated';
+    const isSignedIn = !!session.data?.user;
 
     const pathname = usePathname();
-    const locale = useLocale();
 
     const activeNavigationGroup = isSignedIn
         ? items.find((item) => {
               if (item.__typename === 'NavigationGroup') {
                   return item.items
                       .filter((item) => item.__typename === 'NavigationItem')
-                      .some((item) => item.url === pathname);
+                      .some((item) => item.url && pathname.includes(item.url) && item.url !== '/');
               }
 
-              return item.url === pathname;
+              return item.url && pathname.includes(item.url) && item.url !== '/';
           }) || items[0]
         : undefined;
 
@@ -73,12 +71,8 @@ export function DesktopNavigation({
         active?: boolean;
     }) => {
         return (
-            <NavigationMenuLink asChild active={active}>
-                <Link asChild>
-                    <NextLink href={href} locale={locale} className={cn(navigationItemClass, className)}>
-                        {children}
-                    </NextLink>
-                </Link>
+            <NavigationMenuLink asChild active={active} className={cn(navigationItemClass, className)}>
+                <NextLink href={href}>{children}</NextLink>
             </NavigationMenuLink>
         );
     };
