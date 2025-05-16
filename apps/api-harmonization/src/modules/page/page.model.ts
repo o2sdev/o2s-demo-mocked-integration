@@ -1,14 +1,23 @@
 import { CMS, Models } from '@o2s/framework/modules';
 
 import {
+    Article,
+    ArticleList,
+    Category,
+    // BLOCK IMPORT
+    CategoryList,
     Faq,
     InvoiceList,
     NotificationDetails,
     NotificationList,
+    OrderList,
+    OrdersSummary,
     PaymentsHistory,
     PaymentsSummary,
+    QuickLinks,
     ServiceDetails,
     ServiceList,
+    Surveyjs,
     TicketDetails,
     TicketList,
     TicketRecent,
@@ -21,8 +30,10 @@ export class Init {
         label: string;
     }[];
     common!: PageCommon;
+    labels!: Labels;
 }
 
+export type Labels = CMS.Model.AppConfig.Labels;
 export class Page {
     data?: PageData;
     meta!: Metadata;
@@ -57,6 +68,10 @@ export class PageData {
 }
 
 export type Blocks =
+    | ArticleList.Model.ArticleListBlock['__typename']
+    | Category.Model.CategoryBlock['__typename']
+    | Article.Model.ArticleBlock['__typename']
+    // BLOCK REGISTER
     | TicketList.Model.TicketListBlock['__typename']
     | TicketDetails.Model.TicketDetailsBlock['__typename']
     | NotificationList.Model.NotificationListBlock['__typename']
@@ -68,4 +83,9 @@ export type Blocks =
     | UserAccount.Model.UserAccountBlock['__typename']
     | TicketRecent.Model.TicketRecentBlock['__typename']
     | ServiceList.Model.ServiceListBlock['__typename']
-    | ServiceDetails.Model.ServiceDetailsBlock['__typename'];
+    | ServiceDetails.Model.ServiceDetailsBlock['__typename']
+    | Surveyjs.Model.SurveyjsBlock['__typename']
+    | OrderList.Model.OrderListBlock['__typename']
+    | OrdersSummary.Model.OrdersSummaryBlock['__typename']
+    | QuickLinks.Model.QuickLinksBlock['__typename']
+    | CategoryList.Model.CategoryListBlock['__typename'];

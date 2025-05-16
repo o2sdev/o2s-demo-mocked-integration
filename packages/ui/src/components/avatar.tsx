@@ -47,12 +47,24 @@ AvatarImage.displayName = AvatarPrimitive.Image.displayName;
 
 export interface AvatarFallbackProps
     extends React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback>,
-        VariantProps<typeof avatarVariants> {}
+        VariantProps<typeof avatarVariants> {
+    name: string;
+}
 
 const AvatarFallback = React.forwardRef<React.ElementRef<typeof AvatarPrimitive.Fallback>, AvatarFallbackProps>(
-    ({ variant, className, ...props }, ref) => (
-        <AvatarPrimitive.Fallback ref={ref} className={cn(avatarVariants({ variant, className }))} {...props} />
-    ),
+    ({ variant, className, name, ...props }, ref) => {
+        const initials = name
+            .split(' ')
+            .map((name) => name[0])
+            .join('')
+            .toUpperCase();
+
+        return (
+            <AvatarPrimitive.Fallback ref={ref} className={cn(avatarVariants({ variant, className }))} {...props}>
+                {initials}
+            </AvatarPrimitive.Fallback>
+        );
+    },
 );
 AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
 
@@ -64,11 +76,11 @@ type AvatarUserProps = {
 const AvatarUser = ({ name, email, className, ...props }: AvatarUserProps) => (
     <p className={cn('flex flex-col gap-0.5', className)} {...props}>
         <Typography variant="small" asChild>
-            <span className="whitespace-nowrap overflow-hidden overflow-ellipsis">{name}</span>
+            <span className="whitespace-nowrap overflow-hidden text-ellipsis">{name}</span>
         </Typography>
         {email && (
             <Typography variant="small" asChild>
-                <span className="whitespace-nowrap overflow-hidden overflow-ellipsis">{email}</span>
+                <span className="whitespace-nowrap overflow-hidden text-ellipsis">{email}</span>
             </Typography>
         )}
     </p>

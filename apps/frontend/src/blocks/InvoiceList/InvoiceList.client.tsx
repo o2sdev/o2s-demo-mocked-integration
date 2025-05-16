@@ -10,7 +10,7 @@ import { Link } from '@o2s/ui/components/link';
 import { LoadingOverlay } from '@o2s/ui/components/loading-overlay';
 import { Separator } from '@o2s/ui/components/separator';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@o2s/ui/components/table';
-import { Typography } from '@o2s/ui/components/typography';
+import { toast } from '@o2s/ui/hooks/use-toast';
 import { cn } from '@o2s/ui/lib/utils';
 
 import { sdk } from '@/api/sdk';
@@ -18,8 +18,8 @@ import { sdk } from '@/api/sdk';
 import { downloadFile } from '@/utils/downloadFile';
 import { invoiceBadgePaymentStatusVariants } from '@/utils/mappings/invoice-badge';
 
-import { Filters } from '@/components/Filters/Filters';
-import FiltersContextProvider, { InitialFilters } from '@/components/Filters/FiltersContext';
+import { InitialFilters } from '@/components/Filters/FiltersContext';
+import { FiltersSection } from '@/components/Filters/FiltersSection';
 import { NoResults } from '@/components/NoResults/NoResults';
 import { Pagination } from '@/components/Pagination/Pagination';
 import { Price } from '@/components/Price/Price';
@@ -61,8 +61,13 @@ export const InvoiceListPure: React.FC<InvoiceListPureProps> = ({ locale, access
         try {
             const response = await sdk.blocks.getInvoicePdf(id, { 'x-locale': locale }, accessToken);
             downloadFile(response, data.downloadFileName?.replace('{id}', id) || 'invoice.pdf');
-        } catch (error) {
-            console.error('Error downloading invoice:', error);
+        } catch (_error) {
+            toast({
+                variant: 'destructive',
+                // TODO: get labels from configurable texts
+                title: 'Uh oh! Something went wrong.',
+                description: 'There was a problem with your request.',
+            });
         }
     };
 
@@ -71,21 +76,14 @@ export const InvoiceListPure: React.FC<InvoiceListPureProps> = ({ locale, access
             {initialData.length > 0 ? (
                 <div className="flex flex-col gap-12">
                     <div className="flex flex-col gap-6">
-                        <div className="flex justify-between items-center gap-4 flex-wrap md:flex-nowrap">
-                            {data.table.title && (
-                                <Typography variant="h2" asChild>
-                                    <h2>{data.table.title}</h2>
-                                </Typography>
-                            )}
-                            <FiltersContextProvider initialFilters={initialFilters as unknown as InitialFilters}>
-                                <Filters
-                                    filters={data.filters}
-                                    initialValues={filters}
-                                    onSubmit={handleFilter}
-                                    onReset={handleReset}
-                                />
-                            </FiltersContextProvider>
-                        </div>
+                        <FiltersSection
+                            title={data.table.title}
+                            initialFilters={initialFilters as unknown as InitialFilters}
+                            filters={data.filters}
+                            initialValues={filters}
+                            onSubmit={handleFilter}
+                            onReset={handleReset}
+                        />
 
                         <LoadingOverlay isActive={isPending}>
                             {data.invoices.data.length ? (
@@ -97,7 +95,7 @@ export const InvoiceListPure: React.FC<InvoiceListPureProps> = ({ locale, access
                                                     <TableHead
                                                         key={column.id}
                                                         className={cn(
-                                                            'py-3 px-4 text-sm text-muted-foreground',
+                                                            'py-3 px-4 text-sm text-muted-foreground md:text-nowrap',
                                                             column.id === 'totalAmountDue' && 'text-right',
                                                             column.id === 'amountToPay' && 'text-right',
                                                         )}
@@ -106,7 +104,7 @@ export const InvoiceListPure: React.FC<InvoiceListPureProps> = ({ locale, access
                                                     </TableHead>
                                                 ))}
                                                 {data.table.data.actions && (
-                                                    <TableHead className="py-3 px-4 text-sm text-muted-foreground">
+                                                    <TableHead className="py-3 px-4 text-sm text-muted-foreground md:text-nowrap">
                                                         {data.table.data.actions.title}
                                                     </TableHead>
                                                 )}

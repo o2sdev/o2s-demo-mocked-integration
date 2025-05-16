@@ -4,7 +4,6 @@ import Cookies from 'js-cookie';
 import { X } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
 import React, { useState } from 'react';
 
 import { Button } from '@o2s/ui/components/button';
@@ -14,9 +13,11 @@ import { Typography } from '@o2s/ui/components/typography';
 
 import { Link as NextLink } from '@/i18n';
 
-import { LocaleSwitcher } from '../Auth/Toolbar/LocaleSwitcher';
+import { Image } from '@/components/Image/Image';
 
-import { ContextSwitcher } from './ContextSwitcher/ContextSwitcher';
+import { LocaleSwitcher } from '../Auth/Toolbar/LocaleSwitcher';
+import { ContextSwitcher } from '../ContextSwitcher/ContextSwitcher';
+
 import { DesktopNavigation } from './DesktopNavigation/DesktopNavigation';
 import { HeaderProps } from './Header.types';
 import { MobileNavigation } from './MobileNavigation/MobileNavigation';
@@ -25,7 +26,7 @@ import { UserInfo } from './UserInfo/UserInfo';
 
 export const Header: React.FC<HeaderProps> = ({ headerData, isDemoHidden, children }) => {
     const session = useSession();
-    const isSignedIn = session?.status === 'authenticated';
+    const isSignedIn = !!session.data?.user;
 
     const t = useTranslations();
 
@@ -33,11 +34,12 @@ export const Header: React.FC<HeaderProps> = ({ headerData, isDemoHidden, childr
 
     const LogoSlot = (
         <Link asChild>
-            <NextLink href="/" aria-label={headerData.logo?.name}>
+            {/*TODO: get label from API*/}
+            <NextLink href="/" aria-label={'go to home'}>
                 {headerData.logo?.url && (
                     <Image
                         src={headerData.logo.url}
-                        alt={headerData.logo.alternativeText ?? ''}
+                        alt={headerData.logo.alt}
                         width={headerData.logo.width}
                         height={headerData.logo.height}
                     />
@@ -66,8 +68,7 @@ export const Header: React.FC<HeaderProps> = ({ headerData, isDemoHidden, childr
         return <LocaleSwitcher label={headerData.languageSwitcherLabel ?? 'Language'} />;
     };
 
-    const ContextSwitchSlot = () =>
-        isSignedIn && headerData.contextSwitcher && <ContextSwitcher context={headerData.contextSwitcher} />;
+    const ContextSwitchSlot = () => isSignedIn && <ContextSwitcher data={headerData.contextSwitcher} />;
 
     return (
         <>
@@ -105,7 +106,6 @@ export const Header: React.FC<HeaderProps> = ({ headerData, isDemoHidden, childr
                     </div>
                 </CollapsibleContent>
             </Collapsible>
-
             <header className="flex flex-col gap-4">
                 <>
                     <div className="md:block hidden">

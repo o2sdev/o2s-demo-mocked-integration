@@ -42,6 +42,7 @@ export default async function handler(req, res) {
                 'Expires',
                 'x-locale',
                 'x-currency',
+                'x-client-timezone',
             ],
             methods: ['GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
         });

@@ -1,5 +1,133 @@
 # @o2s/frontend
 
+## 0.22.0
+
+### Minor Changes
+
+- 2e4f22d: feat: add scrollable toggle group filter with multiple selection
+
+    - Add scroll container for toggle group filter in overlay view
+    - Implement multiple selection version for toggle group filter
+    - Add support for horizontal scrolling in filter items
+    - Improve filter item layout with proper spacing and alignment
+    - Add new components: ScrollContainer and ToggleGroup
+    - Add shx script for better cross-platform shell compatibility
+    - Add proper styling for filter items in scroll container
+
+- 04ed4ce: - Coherence of action buttons in tables.
+    - Changing styles for links in RichText component.
+- 8b93cbf: feat: Implement SurveyJS forms
+- 8d92afc: Adding label clickToSelect for reseting filters
+- 30f3524: added `OrdersSummary` block and reworked mocked orders to return random orders instead of them being hardcoded
+- 9a33c13: Add Tooltip to TicketRecent component.
+- 8b93cbf: feat: Integrated SurveyJS
+- 8d92afc: Help center pages and subpages implemented:
+
+    - Added new UI components InformativeCard, BlogCard, Author, ContentSection
+    - Styled blocks, Article, Article List, Category, Category List
+    - Added pagination to Category block
+    - Made changes to mocks and models
+
+- 30f3524: feat: implemented orderListBlock
+
+    - new page /orders,
+    - added strapi integration for page /orders
+    - new UI dropdown-menu component
+
+- a1acbd1: fixed text wrapping in table headers on larger screens
+- 8b93cbf: feat: implement surveyJS forms
+- 84b9002: modified `OrdersSummary` to make range filters optional
+- 2f05843: Moved link to whole row in recent tickets
+- bb46536: feat: cases submission
+
+    - new component DynamicIcon - for loading icons dinamicly,
+    - new component ActionLinks - for showing button list with dropdown-menu,
+    - new pages: /contact-us, /submit-complaint, /request-device-maintenance,
+    - fixed placeholders and disabled state in SurveyJS fields,
+
+- 68f7858: chore: updated dependencies
+
+### Patch Changes
+
+- e4ebc5a: updated dependencies
+- 84b9002: added explicit legend to the chart in `OrdersSummary` block
+- 84b9002: added responsive design to the `OrdersSummary` block
+- Updated dependencies [2e4f22d]
+- Updated dependencies [8b93cbf]
+- Updated dependencies [e4ebc5a]
+- Updated dependencies [8d92afc]
+- Updated dependencies [30f3524]
+- Updated dependencies [8b93cbf]
+- Updated dependencies [8d92afc]
+- Updated dependencies [30f3524]
+- Updated dependencies [8b93cbf]
+- Updated dependencies [84b9002]
+- Updated dependencies [6d63cb1]
+- Updated dependencies [ba125d6]
+- Updated dependencies [bb46536]
+- Updated dependencies [68f7858]
+    - @o2s/framework@0.22.0
+    - @o2s/ui@0.15.0
+    - @o2s/api-harmonization@0.21.0
+
+## 0.21.1
+
+### Patch Changes
+
+- 811d13a: removed not used locale
+- Updated dependencies [0e8409e]
+    - @o2s/framework@0.21.1
+
+## 0.21.0
+
+### Minor Changes
+
+- c0ff0a7: implement context switch
+- de00274: updated dependencies
+- c0ff0a7: implement context change, user roles
+- e9dc277: feat: handle user's timezone
+- a854c74: upgraded Tailwind to v4
+- 7b15c0d: replaced `next-pwa` with native manifest from next.js and added app icons
+- e9dc277: feat: handle user's timezone
+
+### Patch Changes
+
+- Updated dependencies [c0ff0a7]
+- Updated dependencies [de00274]
+- Updated dependencies [c0ff0a7]
+- Updated dependencies [e9dc277]
+- Updated dependencies [a854c74]
+- Updated dependencies [c0ff0a7]
+- Updated dependencies [e9dc277]
+    - @o2s/api-harmonization@0.20.0
+    - @o2s/framework@0.21.0
+    - @o2s/ui@0.14.0
+
+## 0.20.0
+
+### Minor Changes
+
+- 51a6121: fix: update generators
+
+### Patch Changes
+
+- Updated dependencies [51a6121]
+    - @o2s/api-harmonization@0.19.0
+
+## 0.19.0
+
+### Minor Changes
+
+- fa2f2c5: fix: incorrect layout on the PaymentCard
+- dadad64: fix: service-list - wrong tag color"
+- b9090bc: incorrect colors on hover in the Navbar and the Footer
+
+### Patch Changes
+
+- Updated dependencies [b9090bc]
+    - @o2s/ui@0.13.0
+    - @o2s/api-harmonization@0.18.1
+
 ## 0.18.0
 
 ### Minor Changes

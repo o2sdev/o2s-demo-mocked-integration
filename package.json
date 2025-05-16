@@ -14,19 +14,13 @@
         "changeset": "changeset",
         "version-packages": "changeset version",
         "prerelease": "turbo run build",
-        "release": "changeset publish"
-    },
-    "devDependencies": {
-        "husky": "^9.1.7",
-        "lint-staged": "^15.5.0",
-        "prettier": "^3.5.3",
-        "turbo": "^2.4.4",
-        "typescript": "5.8.2"
+        "release": "changeset publish",
+        "update-deps": "npx npm-check-updates --format group --workspaces --interactive"
     },
     "engines": {
-        "node": ">=18"
+        "node": ">=22"
     },
-    "packageManager": "npm@10.2.4",
+    "packageManager": "npm@11.3.0",
     "workspaces": [
         "apps/*",
         "packages/*",
@@ -34,12 +28,17 @@
         "packages/integrations/*",
         "packages/utils/*"
     ],
+    "devDependencies": {
+        "@commitlint/cli": "^19.8.1",
+        "@commitlint/config-conventional": "^19.8.1",
+        "husky": "^9.1.7",
+        "lint-staged": "^16.0.0",
+        "prettier": "^3.5.3",
+        "syncpack": "^14.0.0-alpha.11",
+        "turbo": "^2.5.3",
+        "typescript": "5.8.3"
+    },
     "dependencies": {
-        "@changesets/cli": "^2.27.10",
-        "@nestjs/cache-manager": "^3.0.0",
-        "cache-manager": "^6.4.0",
-        "docusaurus-plugin-image-zoom": "^3.0.1",
-        "ioredis": "^5.4.2",
-        "xmlbuilder2": "^3.1.1"
+        "@changesets/cli": "^2.29.4"
     }
 }
