@@ -1,15 +1,10 @@
 'use client';
 
-import Cookies from 'js-cookie';
-import { X } from 'lucide-react';
 import { useSession } from 'next-auth/react';
-import { useTranslations } from 'next-intl';
-import React, { useState } from 'react';
+import React from 'react';
+import { DemoAlert } from 'src/containers/Header/DemoAlert';
 
-import { Button } from '@o2s/ui/components/button';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@o2s/ui/components/collapsible';
 import { Link } from '@o2s/ui/components/link';
-import { Typography } from '@o2s/ui/components/typography';
 
 import { Link as NextLink } from '@/i18n';
 
@@ -24,88 +19,46 @@ import { MobileNavigation } from './MobileNavigation/MobileNavigation';
 import { NotificationInfo } from './NotificationInfo/NotificationInfo';
 import { UserInfo } from './UserInfo/UserInfo';
 
-export const Header: React.FC<HeaderProps> = ({ headerData, isDemoHidden, children }) => {
+export const Header: React.FC<HeaderProps> = ({ data, alternativeUrls, children }) => {
     const session = useSession();
     const isSignedIn = !!session.data?.user;
-
-    const t = useTranslations();
-
-    const [demoHidden, setDemoHidden] = useState(isDemoHidden);
 
     const LogoSlot = (
         <Link asChild>
             {/*TODO: get label from API*/}
             <NextLink href="/" aria-label={'go to home'}>
-                {headerData.logo?.url && (
-                    <Image
-                        src={headerData.logo.url}
-                        alt={headerData.logo.alt}
-                        width={headerData.logo.width}
-                        height={headerData.logo.height}
-                    />
+                {data.logo?.url && (
+                    <Image src={data.logo.url} alt={data.logo.alt} width={data.logo.width} height={data.logo.height} />
                 )}
             </NextLink>
         </Link>
     );
 
     const UserSlot = () => {
-        if (!isSignedIn || !headerData.userInfo) {
+        if (!isSignedIn || !data.userInfo) {
             return undefined;
         }
 
-        return <UserInfo user={session?.data?.user} userInfo={headerData.userInfo} />;
+        return <UserInfo user={session?.data?.user} userInfo={data.userInfo} />;
     };
 
     const NotificationSlot = () => {
-        if (!isSignedIn || !headerData.notification?.url || !headerData.notification?.label) {
+        if (!isSignedIn || !data.notification?.url || !data.notification?.label) {
             return null;
         }
 
-        return <NotificationInfo data={{ url: headerData.notification.url, label: headerData.notification.label }} />;
+        return <NotificationInfo data={{ url: data.notification.url, label: data.notification.label }} />;
     };
 
     const LocaleSlot = () => {
-        return <LocaleSwitcher label={headerData.languageSwitcherLabel ?? 'Language'} />;
+        return <LocaleSwitcher label={data.languageSwitcherLabel} alternativeUrls={alternativeUrls} />;
     };
 
-    const ContextSwitchSlot = () => isSignedIn && <ContextSwitcher data={headerData.contextSwitcher} />;
+    const ContextSwitchSlot = () => isSignedIn && <ContextSwitcher data={data.contextSwitcher} />;
 
     return (
         <>
-            <Collapsible
-                open={!demoHidden}
-                onOpenChange={() => {
-                    setDemoHidden(true);
-                    Cookies.set('demoHidden', 'true', { expires: 1 });
-                }}
-            >
-                <CollapsibleContent defaultOpen={!demoHidden}>
-                    <div className="bg-primary text-primary-foreground">
-                        <div className="px-4 md:px-6 py-2 ml-auto mr-auto w-full md:max-w-7xl">
-                            <div className="flex gap-4 items-center justify-between">
-                                <Typography variant="small">
-                                    {t('demoBar.info')}{' '}
-                                    <Link
-                                        href="https://github.com/o2sdev/openselfservice/issues"
-                                        target="_blank"
-                                        className="text-primary-foreground underline"
-                                    >
-                                        {t('demoBar.link')}
-                                    </Link>
-                                    .
-                                </Typography>
-
-                                <CollapsibleTrigger asChild>
-                                    <Button variant="ghost" size="sm" className="w-9 p-0 shrink-0">
-                                        <X className="h-4 w-4" />
-                                        <span className="sr-only">{t('general.close')}</span>
-                                    </Button>
-                                </CollapsibleTrigger>
-                            </div>
-                        </div>
-                    </div>
-                </CollapsibleContent>
-            </Collapsible>
+            <DemoAlert />
             <header className="flex flex-col gap-4">
                 <>
                     <div className="md:block hidden">
@@ -115,7 +68,7 @@ export const Header: React.FC<HeaderProps> = ({ headerData, isDemoHidden, childr
                             localeSlot={<LocaleSlot />}
                             notificationSlot={<NotificationSlot />}
                             userSlot={<UserSlot />}
-                            items={headerData.items}
+                            items={data.items}
                         />
                     </div>
                     <div className="md:hidden">
@@ -125,9 +78,9 @@ export const Header: React.FC<HeaderProps> = ({ headerData, isDemoHidden, childr
                             localeSlot={<LocaleSlot />}
                             notificationSlot={<NotificationSlot />}
                             userSlot={<UserSlot />}
-                            items={headerData.items}
-                            title={headerData.title}
-                            mobileMenuLabel={headerData.mobileMenuLabel}
+                            items={data.items}
+                            title={data.title}
+                            mobileMenuLabel={data.mobileMenuLabel}
                         />
                     </div>
                 </>

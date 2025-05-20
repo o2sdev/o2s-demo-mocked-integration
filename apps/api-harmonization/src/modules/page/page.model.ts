@@ -4,12 +4,12 @@ import {
     Article,
     ArticleList,
     Category,
-    // BLOCK IMPORT
     CategoryList,
     Faq,
     InvoiceList,
     NotificationDetails,
     NotificationList,
+    OrderDetails,
     OrderList,
     OrdersSummary,
     PaymentsHistory,
@@ -22,6 +22,7 @@ import {
     TicketList,
     TicketRecent,
     UserAccount,
+    // BLOCK IMPORT
 } from '@o2s/api-harmonization/blocks';
 
 export class Init {
@@ -46,6 +47,7 @@ export class NotFound {
 export class Metadata {
     seo!: Models.SEO.Page;
     locales!: string[];
+    isProtected!: boolean;
 }
 
 export class Breadcrumb {
@@ -87,5 +89,6 @@ export type Blocks =
     | Surveyjs.Model.SurveyjsBlock['__typename']
     | OrderList.Model.OrderListBlock['__typename']
     | OrdersSummary.Model.OrdersSummaryBlock['__typename']
+    | OrderDetails.Model.OrderDetailsBlock['__typename']
     | QuickLinks.Model.QuickLinksBlock['__typename']
     | CategoryList.Model.CategoryListBlock['__typename'];

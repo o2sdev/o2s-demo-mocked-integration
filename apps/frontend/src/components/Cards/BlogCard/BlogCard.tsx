@@ -6,7 +6,7 @@ import { Typography } from '@o2s/ui/components/typography';
 
 import { Link as NextLink } from '@/i18n';
 
-import { Author } from '../Author/Author';
+import { Author } from '../../Author/Author';
 
 import { BlogCardProps } from './BlogCard.types';
 
@@ -22,7 +22,7 @@ export const BlogCard: React.FC<Readonly<BlogCardProps>> = ({
     return (
         <Link
             asChild
-            className="group whitespace-normal text-foreground hover:no-underline w-full focus-visible:ring-offset-4"
+            className="whitespace-normal text-foreground hover:no-underline w-full focus-visible:ring-offset-4 block"
         >
             <NextLink href={url} aria-label={title}>
                 <div className="flex flex-col gap-6">

@@ -1,5 +1,58 @@
 # @o2s/frontend
 
+## 0.24.1
+
+### Patch Changes
+
+- aaa8c37: code formatting fixes
+
+## 0.24.0
+
+### Minor Changes
+
+- 05eea01: chore: update dependencies
+- 1200a28: feat: update dashboard mock
+- 44653fb: feat: orderDetails page implemented
+
+    - added new UI component: InfoCard,
+    - used InfoCard in PaymentsSummaryBlock, OrdersSummary and OrderDetails,
+    - fixed ordersSummaryBlock integration with strapi,
+    - used DynamicIcon in CategoryBlock,
+    - added orientation prop for Progress component
+
+- 10fbec4: fix: fixed image implementation
+
+### Patch Changes
+
+- 10fbec4: improved global error handling for not-found and unexpected errors
+- Updated dependencies [05eea01]
+- Updated dependencies [44653fb]
+- Updated dependencies [10fbec4]
+    - @o2s/api-harmonization@0.23.0
+    - @o2s/framework@0.24.0
+    - @o2s/ui@0.16.0
+
+## 0.23.0
+
+### Minor Changes
+
+- 2e81dca: added possibility to defined unprotected pages
+
+### Patch Changes
+
+- Updated dependencies [2e81dca]
+    - @o2s/api-harmonization@0.22.0
+    - @o2s/framework@0.23.0
+
+## 0.22.1
+
+### Patch Changes
+
+- 87185e9: feat: updated mocked content for knowledge base
+- Updated dependencies [87185e9]
+    - @o2s/api-harmonization@0.21.1
+    - @o2s/framework@0.22.1
+
 ## 0.22.0
 
 ### Minor Changes
