@@ -1,5 +1,24 @@
 # @o2s/frontend
 
+## 1.0.0
+
+### Major Changes
+
+- 0e0c816: Official stable release
+
+### Patch Changes
+
+- Updated dependencies [0e0c816]
+    - @o2s/api-harmonization@1.0.0
+    - @o2s/framework@1.0.0
+    - @o2s/ui@1.0.0
+
+## 0.25.1
+
+### Patch Changes
+
+- 320512b: fixed tables in rich text expanding beyond the viewport
+
 ## 0.25.0
 
 ### Minor Changes
