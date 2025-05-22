@@ -9,7 +9,7 @@ import { OrderDetailsBlock } from './order-details.model';
 
 export const mapOrderDetails = (
     cms: CMS.Model.OrderDetailsBlock.OrderDetailsBlock,
-    order: Orders.Model.Order,
+    order: Orders.Model.Order & { totalItems: number },
     locale: string,
     timezone: string,
     defaultProductUnit: string,
@@ -37,7 +37,7 @@ export const mapOrderDetails = (
                 title: cms.totalValue.title,
                 icon: cms.totalValue.icon,
                 label: checkNegativeValue(order.total).value.toString(),
-                description: cms.totalValue.message?.replace(/{value}/g, order.items.length.toString()),
+                description: cms.totalValue.message?.replace(/{value}/g, order.totalItems.toString()),
                 value: order.total,
             },
             createdAt: {
@@ -90,7 +90,7 @@ export const mapOrderDetails = (
             title: cms.productsTitle,
             products: {
                 data: mapOrderItems(order.items, cms.fieldMapping, defaultProductUnit),
-                total: order.items.length,
+                total: order.totalItems,
             },
             table: cms.table,
             pagination: cms.pagination,
