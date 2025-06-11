@@ -1,3 +1,5 @@
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { SessionProvider } from 'next-auth/react';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
@@ -54,6 +56,9 @@ export default async function RootLayout({ children, params }: Props) {
                         <TooltipProvider>{children}</TooltipProvider>
                     </NextIntlClientProvider>
                 </SessionProvider>
+
+                <Analytics />
+                <SpeedInsights />
             </body>
         </html>
     );
