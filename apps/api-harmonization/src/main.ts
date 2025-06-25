@@ -6,7 +6,6 @@ import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import process from 'node:process';
 
-import { AppConfig } from './app.config';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
