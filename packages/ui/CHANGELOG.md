@@ -1,5 +1,34 @@
 # @o2s/ui
 
+## 1.2.0
+
+### Minor Changes
+
+- 027ed39: featuredServiceListBlock - list of available services
+
+    - added new UI componetnt from Shadcn - Switch,
+    - extended ProductCard with action property,
+    - implemented model and mock for FeatureServiceListBlock,
+    - integrated with strapi,
+
+## 1.1.0
+
+### Minor Changes
+
+- f015c2b: New block ArticleSearch - Input field with suggestions to find appropriate article.
+
+    - added new UI component - Command,
+    - added new articles mock,
+    - added mock for ArticleSearchBlock,
+    - added strapi integration for ArticleSearchBlock,
+    - added new component Autocomplete,
+
+## 1.0.0
+
+### Major Changes
+
+- 0e0c816: Official stable release
+
 ## 0.16.0
 
 ### Minor Changes

@@ -1,0 +1,11 @@
+{
+    "extends": ["//"],
+    "tasks": {
+        "dev": {
+            "env": ["NODE_ENV", "AUTH_DATABASE_URL", "AUTH_DIRECT_URL"]
+        },
+        "build": {
+            "env": ["NODE_ENV", "AUTH_DATABASE_URL", "AUTH_DIRECT_URL"]
+        }
+    }
+}

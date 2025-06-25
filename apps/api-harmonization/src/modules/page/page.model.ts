@@ -3,9 +3,12 @@ import { CMS, Models } from '@o2s/framework/modules';
 import {
     Article,
     ArticleList,
+    ArticleSearch,
     Category,
     CategoryList,
     Faq,
+    FeaturedServiceList,
+    // BLOCK IMPORT
     InvoiceList,
     NotificationDetails,
     NotificationList,
@@ -22,7 +25,6 @@ import {
     TicketList,
     TicketRecent,
     UserAccount,
-    // BLOCK IMPORT
 } from '@o2s/api-harmonization/blocks';
 
 export class Init {
@@ -73,7 +75,7 @@ export type Blocks =
     | ArticleList.Model.ArticleListBlock['__typename']
     | Category.Model.CategoryBlock['__typename']
     | Article.Model.ArticleBlock['__typename']
-    // BLOCK REGISTER
+    | ArticleSearch.Model.ArticleSearchBlock['__typename']
     | TicketList.Model.TicketListBlock['__typename']
     | TicketDetails.Model.TicketDetailsBlock['__typename']
     | NotificationList.Model.NotificationListBlock['__typename']
@@ -91,4 +93,6 @@ export type Blocks =
     | OrdersSummary.Model.OrdersSummaryBlock['__typename']
     | OrderDetails.Model.OrderDetailsBlock['__typename']
     | QuickLinks.Model.QuickLinksBlock['__typename']
-    | CategoryList.Model.CategoryListBlock['__typename'];
+    | CategoryList.Model.CategoryListBlock['__typename']
+    | FeaturedServiceList.Model.FeaturedServiceListBlock['__typename'];
+// BLOCK REGISTER

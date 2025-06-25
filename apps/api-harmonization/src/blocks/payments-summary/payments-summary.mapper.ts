@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import format from 'string-template';
 
 import { Models } from '@o2s/framework/modules';
 
@@ -21,7 +22,7 @@ export const mapPaymentsSummary = (
     }, 0);
 
     const earliestDueDate = overdueInvoices.length
-        ? Math.min(...overdueInvoices.map((invoice) => new Date(invoice.paymentDueDate).getTime()))
+        ? Math.min(...overdueInvoices.map((invoice) => new Date(invoice.issuedDate).getTime()))
         : null;
 
     const overdueDays = earliestDueDate ? dayjs().diff(dayjs(earliestDueDate), 'days') : 0;
@@ -41,7 +42,9 @@ export const mapPaymentsSummary = (
             title: cms.overdue.title,
             link: cms.overdue.link,
             description: isOverdue
-                ? cms.overdue?.message?.replace(/{days}/g, overdueDays.toString()) || ''
+                ? format(cms.overdue?.message || '', {
+                      days: overdueDays,
+                  })
                 : cms.overdue?.altMessage || '',
             value: { value: checkNegativeValue({ value: overdueAmount, currency }).value, currency },
             isOverdue: isOverdue,

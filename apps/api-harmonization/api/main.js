@@ -29,8 +29,10 @@ export default async function handler(req, res) {
             app.setGlobalPrefix(process.env.API_PREFIX);
         }
 
+        const origins = process.env.FRONT_BASE_URLS.split(',');
+
         app.enableCors({
-            origin: [process.env.FRONT_BASE_URL],
+            origin: [...origins],
             preflightContinue: false,
             credentials: true,
             allowedHeaders: [

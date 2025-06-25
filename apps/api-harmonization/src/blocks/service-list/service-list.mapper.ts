@@ -2,12 +2,12 @@ import format from 'string-template';
 
 import { formatDateRelative } from '@o2s/api-harmonization/utils/date';
 
-import { CMS } from '../../models';
+import { CMS, Resources } from '../../models';
 
-import { Service, ServiceListBlock, ServiceWithProduct, ServicesList } from './service-list.model';
+import { Service, ServiceListBlock } from './service-list.model';
 
 export const mapServiceList = (
-    services: ServicesList,
+    services: Resources.Model.Services,
     cms: CMS.Model.ServiceListBlock.ServiceListBlock,
     locale: string,
     timezone: string,
@@ -29,7 +29,7 @@ export const mapServiceList = (
 };
 
 const mapService = (
-    service: ServiceWithProduct,
+    service: Resources.Model.Service,
     cms: CMS.Model.ServiceListBlock.ServiceListBlock,
     locale: string,
     timezone: string,
@@ -46,16 +46,25 @@ const mapService = (
         }),
         contract: {
             id: contract.id,
-            type: {
-                value: contract.type,
-                label: type?.[contract.type] || contract.type,
-            },
+            type: contract.type
+                ? {
+                      value: contract.type,
+                      label: type?.[contract.type] || contract.type,
+                  }
+                : undefined,
             status: {
                 value: contract.status,
                 label: status?.[contract.status] || contract.status,
             },
             startDate: formatDateRelative(contract.startDate, locale, cms.labels.today, cms.labels.yesterday, timezone),
             endDate: formatDateRelative(contract.endDate, locale, cms.labels.today, cms.labels.yesterday, timezone),
+            price: {
+                value: contract.price.value,
+                currency: contract.price.currency,
+                period: contract.paymentPeriod
+                    ? paymentPeriod?.[contract.paymentPeriod] || contract.paymentPeriod
+                    : undefined,
+            },
         },
         product: {
             id: product.id,
@@ -69,15 +78,8 @@ const mapService = (
                 label: category?.[product.category] || product.category,
             },
             description: product.description,
-            shortDescription: product.shortDescription,
+            shortDescription: product?.shortDescription,
             image: product.image,
-            price: {
-                value: product.price.value,
-                currency: product.price.currency,
-                period: contract.paymentPeriod
-                    ? paymentPeriod?.[contract.paymentPeriod] || contract.paymentPeriod
-                    : undefined,
-            },
             link: product.link,
             tags: product.tags,
         },
