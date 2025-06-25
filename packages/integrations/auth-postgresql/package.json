@@ -12,8 +12,8 @@
         ".env.local"
     ],
     "scripts": {
-        "prepare": "npx prisma generate && dotenv -e .env.local -- prisma migrate deploy && dotenv -e .env.local -- prisma db seed",
-        "postinstall": "npm run prepare",
+        "prepare": "npx prisma generate",
+        "init": "dotenv -e .env.local -- prisma migrate deploy",
         "dev": "tsc && (concurrently \"tsc -w\" \"tsc-alias -w\")",
         "build": "dotenv -e .env.local -- prisma migrate deploy && tsc && tsc-alias",
         "lint": "tsc --noEmit && eslint . --max-warnings 0",
