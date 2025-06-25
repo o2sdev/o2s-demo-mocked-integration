@@ -12,7 +12,7 @@
         ".env.local"
     ],
     "scripts": {
-        "prepare": "npx prisma generate && npm run build",
+        "prepare": "npx prisma generate && tsc && tsc-alias",
         "init": "dotenv -e .env.local -- prisma migrate deploy",
         "dev": "tsc && (concurrently \"tsc -w\" \"tsc-alias -w\")",
         "build": "dotenv -e .env.local -- prisma migrate deploy && tsc && tsc-alias",
