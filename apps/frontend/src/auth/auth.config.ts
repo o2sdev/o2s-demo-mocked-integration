@@ -7,7 +7,7 @@ import { useSession } from 'next-auth/react';
 
 import { Models } from '@o2s/framework/modules';
 
-import * as Auth from '@o2s/integrations.auth-postgresql/auth';
+import * as Auth from '@o2s/integrations.mocked/auth';
 
 import { sdk } from '@/api/sdk';
 

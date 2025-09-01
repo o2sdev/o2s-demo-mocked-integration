@@ -1,5 +1,114 @@
 # @o2s/api-harmonization
 
+## 1.9.1
+
+### Patch Changes
+
+- c25f982: added missing dependencies
+
+## 1.9.0
+
+### Minor Changes
+
+- 2421fb2: A major rework of the approach to the blocks - separated all block-related code from `api-harmonization` and `frontend` apps into separate packages, allowing versioning and much easier updates in other apps started using `create-o2s-app` script
+
+### Patch Changes
+
+- Updated dependencies [2421fb2]
+    - @o2s/blocks.featured-service-list@1.0.0
+    - @o2s/blocks.notification-details@1.0.0
+    - @o2s/blocks.notification-list@1.0.0
+    - @o2s/blocks.payments-history@1.0.0
+    - @o2s/blocks.payments-summary@1.0.0
+    - @o2s/blocks.service-details@1.0.0
+    - @o2s/blocks.article-search@1.0.0
+    - @o2s/blocks.orders-summary@1.0.0
+    - @o2s/blocks.ticket-details@1.0.0
+    - @o2s/blocks.category-list@1.0.0
+    - @o2s/blocks.order-details@1.0.0
+    - @o2s/blocks.surveyjs-form@1.0.0
+    - @o2s/blocks.ticket-recent@1.0.0
+    - @o2s/configs.integrations@0.1.0
+    - @o2s/blocks.article-list@1.0.0
+    - @o2s/blocks.invoice-list@1.0.0
+    - @o2s/blocks.service-list@1.0.0
+    - @o2s/blocks.user-account@1.0.0
+    - @o2s/integrations.mocked@1.11.0
+    - @o2s/blocks.quick-links@1.0.0
+    - @o2s/blocks.ticket-list@1.0.0
+    - @o2s/blocks.order-list@1.0.0
+    - @o2s/blocks.category@1.0.0
+    - @o2s/blocks.article@1.0.0
+    - @o2s/blocks.faq@1.0.0
+    - @o2s/framework@1.11.0
+
+## 1.8.0
+
+### Minor Changes
+
+- e81621c: added `PROSPECT` role for freshly-created users
+
+### Patch Changes
+
+- Updated dependencies [e81621c]
+    - @o2s/integrations.mocked@1.9.0
+    - @o2s/framework@1.9.0
+
+## 1.7.0
+
+### Minor Changes
+
+- fb09383: Removing unused import
+
+### Patch Changes
+
+- Updated dependencies [fb09383]
+- Updated dependencies [fb09383]
+    - @o2s/integrations.mocked@1.8.0
+    - @o2s/framework@1.8.0
+
+## 1.6.1
+
+### Patch Changes
+
+- ca33e9a: fix: fixed api-harmonization generator
+
+## 1.6.0
+
+### Minor Changes
+
+- c13192c: implemented user role-based access to pages and articles
+
+### Patch Changes
+
+- Updated dependencies [c13192c]
+- Updated dependencies [c13192c]
+    - @o2s/framework@1.7.0
+    - @o2s/integrations.mocked@1.7.0
+
+## 1.5.6
+
+### Patch Changes
+
+- a5b8ee5: added missing dependency
+- 50b2ba3: added example docker config
+
+## 1.5.5
+
+### Patch Changes
+
+- d038e21: added missing dependency
+- Updated dependencies [38a9331]
+    - @o2s/integrations.mocked@1.6.8
+
+## 1.5.4
+
+### Patch Changes
+
+- 9a93a3d: feat: orders - replace price to be NET
+- Updated dependencies [9a93a3d]
+    - @o2s/integrations.mocked@1.6.7
+
 ## 1.5.3
 
 ### Patch Changes

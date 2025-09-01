@@ -4,25 +4,28 @@ import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 import React from 'react';
 
-import { Separator } from '@o2s/ui/components/separator';
-import { Toaster } from '@o2s/ui/components/toaster';
-import { Typography } from '@o2s/ui/components/typography';
+import { GlobalProvider } from '@o2s/ui/providers/GlobalProvider';
+
+import { AppSpinner } from '@o2s/ui/components/AppSpinner';
+import { Breadcrumbs } from '@o2s/ui/components/Breadcrumbs';
+
+import { Separator } from '@o2s/ui/elements/separator';
+import { Toaster } from '@o2s/ui/elements/toaster';
+import { Typography } from '@o2s/ui/elements/typography';
 
 import { sdk } from '@/api/sdk';
 
+import { getRootBreadcrumb } from '@/utils/breadcrumb';
 import { generateSeo } from '@/utils/seo';
 
 import { auth, signIn } from '@/auth';
 
-import { GlobalProvider } from '@/providers/GlobalProvider';
+import { Link } from '@/i18n';
 
 import { PageTemplate } from '@/templates/PageTemplate/PageTemplate';
 
 import { Footer } from '@/containers/Footer/Footer';
 import { Header } from '@/containers/Header/Header';
-
-import { AppSpinner } from '@/components/AppSpinner/AppSpinner';
-import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs';
 
 interface Props {
     params: Promise<{
@@ -45,14 +48,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             { 'x-locale': locale },
             session?.accessToken,
         );
-
-        if (meta.isProtected && (!session?.user || session?.error === 'RefreshTokenError')) {
-            return signIn();
-        }
-
-        if (!data || !meta) {
-            notFound();
-        }
 
         setRequestLocale(locale);
 
@@ -90,6 +85,8 @@ export default async function Page({ params }: Props) {
         session?.accessToken,
     );
 
+    const rootBreadcrumb = getRootBreadcrumb(init.common.header.items, slug);
+
     try {
         const { data, meta } = await sdk.modules.getPage(
             {
@@ -99,7 +96,7 @@ export default async function Page({ params }: Props) {
             session?.accessToken,
         );
 
-        if (meta.isProtected && (!session?.user || session?.error === 'RefreshTokenError')) {
+        if (session?.user && session?.error === 'RefreshTokenError') {
             return await signIn();
         }
 
@@ -114,7 +111,12 @@ export default async function Page({ params }: Props) {
                         <div className="py-6 px-4 md:px-6 ml-auto mr-auto w-full md:max-w-7xl">
                             <main className="flex flex-col gap-6 row-start-2 items-center sm:items-start">
                                 <div className="flex flex-col gap-6 w-full">
-                                    <Breadcrumbs breadcrumbs={data.breadcrumbs} />
+                                    <Breadcrumbs
+                                        breadcrumbs={
+                                            rootBreadcrumb ? [rootBreadcrumb, ...data.breadcrumbs] : data.breadcrumbs
+                                        }
+                                        LinkComponent={Link}
+                                    />
                                     {!data.hasOwnTitle && (
                                         <>
                                             <Typography variant="h1" asChild>
@@ -125,7 +127,7 @@ export default async function Page({ params }: Props) {
                                     )}
                                 </div>
 
-                                <PageTemplate slug={slug} data={data} session={session} />
+                                <PageTemplate slug={slug} data={data} />
                             </main>
                         </div>
                     </div>
@@ -144,6 +146,19 @@ export default async function Page({ params }: Props) {
             (error && 'response' in error && 'status' in error.response && error.response.status === 404)
         ) {
             notFound();
+        }
+
+        if (
+            // @ts-expect-error TODO add proper error type detection
+            (error && 'status' in error && error.status === 401) ||
+            // @ts-expect-error TODO add proper error type detection
+            (error && 'response' in error && 'status' in error.response && error.response.status === 401)
+        ) {
+            if (!session?.user) {
+                return await signIn();
+            } else {
+                notFound();
+            }
         }
 
         throw error;

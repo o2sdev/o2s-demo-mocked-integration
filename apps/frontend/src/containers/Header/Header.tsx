@@ -2,17 +2,17 @@
 
 import { useSession } from 'next-auth/react';
 import React from 'react';
-import { DemoAlert } from 'src/containers/Header/DemoAlert';
 
-import { Link } from '@o2s/ui/components/link';
+import { Image } from '@o2s/ui/components/Image';
+
+import { Link } from '@o2s/ui/elements/link';
 
 import { Link as NextLink } from '@/i18n';
-
-import { Image } from '@/components/Image/Image';
 
 import { LocaleSwitcher } from '../Auth/Toolbar/LocaleSwitcher';
 import { ContextSwitcher } from '../ContextSwitcher/ContextSwitcher';
 
+import { DemoAlert } from './DemoAlert';
 import { DesktopNavigation } from './DesktopNavigation/DesktopNavigation';
 import { HeaderProps } from './Header.types';
 import { MobileNavigation } from './MobileNavigation/MobileNavigation';

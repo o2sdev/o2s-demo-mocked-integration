@@ -1,11 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { Articles, Auth, CMS } from '@o2s/configs.integrations';
 import { Observable, concatMap, forkJoin, map, of, switchMap } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 
-import { AppHeaders } from '@o2s/api-harmonization/utils/headers';
+import { Models } from '@o2s/utils.api-harmonization';
 
-import { Articles, CMS } from '../../models';
+import { checkPermissions } from '@o2s/api-harmonization/utils/permissions';
 
 import { mapArticle, mapInit, mapPage } from './page.mapper';
 import { Init, NotFound, Page } from './page.model';
@@ -19,6 +19,7 @@ export class PageService {
         private readonly config: ConfigService,
         private readonly cmsService: CMS.Service,
         private readonly articlesService: Articles.Service,
+        private readonly authService: Auth.Service,
     ) {
         this.SUPPORTED_LOCALES = this.config.get('SUPPORTED_LOCALES').split(',') as string[];
     }
@@ -45,7 +46,9 @@ export class PageService {
         );
     }
 
-    getInit(query: GetInitQuery, headers: AppHeaders): Observable<Init> {
+    getInit(query: GetInitQuery, headers: Models.Headers.AppHeaders): Observable<Init> {
+        const userRoles = this.authService.extractUserRoles(headers['authorization']);
+
         return this.cmsService.getAppConfig({ referrer: query.referrer, locale: headers['x-locale'] }).pipe(
             switchMap((appConfig) => {
                 const header = this.cmsService.getHeader({
@@ -60,37 +63,42 @@ export class PageService {
 
                 return forkJoin([header, footer]).pipe(
                     map(([header, footer]) => {
-                        return mapInit(appConfig.locales, header, footer, appConfig.labels);
+                        return mapInit(appConfig.locales, header, footer, appConfig.labels, userRoles);
                     }),
                 );
             }),
         );
     }
 
-    getPage(query: GetPageQuery, headers: AppHeaders): Observable<Page | NotFound> {
+    getPage(query: GetPageQuery, headers: Models.Headers.AppHeaders): Observable<Page | NotFound> {
         const page = this.cmsService.getPage({ slug: query.slug, locale: headers['x-locale'] });
+
+        const userRoles = this.authService.extractUserRoles(headers['authorization']);
 
         return forkJoin([page]).pipe(
             concatMap(([page]) => {
                 if (!page) {
-                    return this.articlesService
-                        .getArticle({ slug: query.slug, locale: headers['x-locale'] })
-                        .pipe(concatMap((article) => this.processArticle(article, query, headers)));
+                    return this.articlesService.getArticle({ slug: query.slug, locale: headers['x-locale'] }).pipe(
+                        concatMap((article) => {
+                            if (!article) {
+                                throw new NotFoundException();
+                            }
+
+                            checkPermissions(article.permissions, userRoles);
+
+                            return this.processArticle(article, query, headers);
+                        }),
+                    );
                 }
+
+                checkPermissions(page.permissions, userRoles);
+
                 return this.processPage(page, query, headers);
-            }),
-            catchError(() => {
-                return this.articlesService
-                    .getArticle({ slug: query.slug, locale: headers['x-locale'] })
-                    .pipe(concatMap((article) => this.processArticle(article, query, headers)));
-            }),
-            catchError(() => {
-                throw new NotFoundException();
             }),
         );
     }
 
-    private processPage = (page: CMS.Model.Page.Page, query: GetPageQuery, headers: AppHeaders) => {
+    private processPage = (page: CMS.Model.Page.Page, query: GetPageQuery, headers: Models.Headers.AppHeaders) => {
         const alternatePages = this.cmsService
             .getAlternativePages({ id: page.id, slug: query.slug, locale: headers['x-locale'] })
             .pipe(map((pages) => pages.filter((p) => p.id === page.id)));
@@ -103,7 +111,11 @@ export class PageService {
         );
     };
 
-    private processArticle = (article: Articles.Model.Article, _query: GetPageQuery, headers: AppHeaders) => {
+    private processArticle = (
+        article: Articles.Model.Article,
+        _query: GetPageQuery,
+        headers: Models.Headers.AppHeaders,
+    ) => {
         if (!article.category) {
             throw new NotFoundException();
         }

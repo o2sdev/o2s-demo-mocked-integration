@@ -1,5 +1,97 @@
 # @o2s/frontend
 
+## 1.9.0
+
+### Minor Changes
+
+- 2421fb2: A major rework of the approach to the blocks - separated all block-related code from `api-harmonization` and `frontend` apps into separate packages, allowing versioning and much easier updates in other apps started using `create-o2s-app` script
+
+### Patch Changes
+
+- Updated dependencies [2421fb2]
+    - @o2s/blocks.featured-service-list@1.0.0
+    - @o2s/blocks.notification-details@1.0.0
+    - @o2s/blocks.notification-list@1.0.0
+    - @o2s/blocks.payments-history@1.0.0
+    - @o2s/blocks.payments-summary@1.0.0
+    - @o2s/blocks.service-details@1.0.0
+    - @o2s/blocks.article-search@1.0.0
+    - @o2s/blocks.orders-summary@1.0.0
+    - @o2s/blocks.ticket-details@1.0.0
+    - @o2s/blocks.category-list@1.0.0
+    - @o2s/blocks.order-details@1.0.0
+    - @o2s/blocks.surveyjs-form@1.0.0
+    - @o2s/blocks.ticket-recent@1.0.0
+    - @o2s/blocks.article-list@1.0.0
+    - @o2s/blocks.invoice-list@1.0.0
+    - @o2s/blocks.service-list@1.0.0
+    - @o2s/blocks.user-account@1.0.0
+    - @o2s/integrations.mocked@1.11.0
+    - @o2s/blocks.quick-links@1.0.0
+    - @o2s/blocks.ticket-list@1.0.0
+    - @o2s/blocks.order-list@1.0.0
+    - @o2s/blocks.category@1.0.0
+    - @o2s/blocks.article@1.0.0
+    - @o2s/api-harmonization@1.9.0
+    - @o2s/blocks.faq@1.0.0
+    - @o2s/framework@1.11.0
+    - @o2s/ui@1.3.0
+
+## 1.8.0
+
+### Minor Changes
+
+- 6e5f193: feat: update organization role names
+
+### Patch Changes
+
+- Updated dependencies [6e5f193]
+    - @o2s/integrations.mocked@1.10.0
+    - @o2s/framework@1.10.0
+
+## 1.7.0
+
+### Minor Changes
+
+- c13192c: implemented user role-based access to pages and articles
+
+### Patch Changes
+
+- Updated dependencies [c13192c]
+- Updated dependencies [c13192c]
+- Updated dependencies [c13192c]
+    - @o2s/framework@1.7.0
+    - @o2s/api-harmonization@1.6.0
+    - @o2s/integrations.mocked@1.7.0
+
+## 1.6.4
+
+### Patch Changes
+
+- a5b8ee5: added missing dependency
+- 50b2ba3: added example docker config
+- 97055f7: split `NEXT_PUBLIC_API_URL` variable into public and internal ones
+- Updated dependencies [a5b8ee5]
+- Updated dependencies [50b2ba3]
+    - @o2s/api-harmonization@1.5.6
+
+## 1.6.3
+
+### Patch Changes
+
+- 9a93a3d: feat: orders - replace price to be NET
+- Updated dependencies [9a93a3d]
+    - @o2s/integrations.mocked@1.6.7
+    - @o2s/api-harmonization@1.5.4
+
+## 1.6.2
+
+### Patch Changes
+
+- ec84ef0: fix: fixed breadcrumb - removed redundant dashboard text
+- Updated dependencies [ec84ef0]
+    - @o2s/integrations.mocked@1.6.6
+
 ## 1.6.1
 
 ### Patch Changes

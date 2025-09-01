@@ -5,10 +5,10 @@ import { X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import React, { useState } from 'react';
 
-import { Button } from '@o2s/ui/components/button';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@o2s/ui/components/collapsible';
-import { Link } from '@o2s/ui/components/link';
-import { Typography } from '@o2s/ui/components/typography';
+import { Button } from '@o2s/ui/elements/button';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@o2s/ui/elements/collapsible';
+import { Link } from '@o2s/ui/elements/link';
+import { Typography } from '@o2s/ui/elements/typography';
 
 export const DemoAlert = () => {
     const t = useTranslations();

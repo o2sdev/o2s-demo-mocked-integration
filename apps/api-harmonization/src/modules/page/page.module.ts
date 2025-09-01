@@ -1,8 +1,7 @@
 import { DynamicModule, Module } from '@nestjs/common';
+import { Articles, Auth, CMS } from '@o2s/configs.integrations';
 
 import * as Framework from '@o2s/framework/modules';
-
-import { Articles, CMS } from '../../models';
 
 import { PageController } from './page.controller';
 import { PageService } from './page.service';
@@ -21,6 +20,10 @@ export class PageModule {
                 {
                     provide: Articles.Service,
                     useExisting: Framework.Articles.Service,
+                },
+                {
+                    provide: Auth.Service,
+                    useExisting: Framework.Auth.Service,
                 },
             ],
             controllers: [PageController],
