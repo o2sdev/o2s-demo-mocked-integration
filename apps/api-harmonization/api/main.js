@@ -6,7 +6,7 @@ import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 
-import { AppModule } from '../dist/src/app.module';
+import { AppModule } from '../dist/app.module';
 
 // Keep the app instance in memory for subsequent requests
 let app;
