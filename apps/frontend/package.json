@@ -36,6 +36,7 @@
         "@o2s/blocks.ticket-list": "^1.0.0",
         "@o2s/blocks.ticket-recent": "^1.0.0",
         "@o2s/blocks.user-account": "^1.0.0",
+        "@o2s/integrations.auth-postgresql": "*",
         "@o2s/framework": "^1.11.0",
         "@o2s/integrations.mocked": "^1.11.0",
         "@o2s/ui": "*",
