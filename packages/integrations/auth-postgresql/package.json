@@ -4,7 +4,8 @@
     "private": true,
     "license": "MIT",
     "exports": {
-        "./auth": "./dist/index.js"
+        "./auth": "./dist/index.js",
+        "./auth.updateOrganization": "./dist/auth.updateOrganization.js"
     },
     "files": [
         "dist",
