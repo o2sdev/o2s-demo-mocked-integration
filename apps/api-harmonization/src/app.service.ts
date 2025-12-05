@@ -1,6 +1,5 @@
 import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable } from '@nestjs/common';
-import * as telemetry from '@o2s/telemetry';
 
 import { LoggerService } from '@o2s/utils.logger';
 
@@ -32,9 +31,5 @@ export class AppService {
                 throw error;
             },
         );
-    }
-
-    async onApplicationShutdown() {
-        await telemetry.flushEvents();
     }
 }
