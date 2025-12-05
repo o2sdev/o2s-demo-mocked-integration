@@ -1,10 +1,10 @@
 // this is a function used for serverless deployments
-//
-import { LoggerService } from '@o2s/utils.logger';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
+
+import { LoggerService } from '@o2s/utils.logger';
 
 import { AppModule } from '../dist/app.module';
 

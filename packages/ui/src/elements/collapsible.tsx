@@ -6,8 +6,9 @@ const Collapsible = CollapsiblePrimitive.Root;
 
 const CollapsibleTrigger = CollapsiblePrimitive.CollapsibleTrigger;
 
-export interface CollapsibleContentProps
-    extends React.ComponentPropsWithoutRef<typeof CollapsiblePrimitive.CollapsibleContent> {
+export interface CollapsibleContentProps extends React.ComponentPropsWithoutRef<
+    typeof CollapsiblePrimitive.CollapsibleContent
+> {
     defaultOpen?: boolean;
 }
 

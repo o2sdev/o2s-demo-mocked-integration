@@ -13,6 +13,8 @@ const withNextIntl = createNextIntlPlugin();
 const nextConfig: NextConfig = {
     output: 'standalone',
     images: {
+        // deviceSizes: [430, 828, 1200, 2048, 3840],
+        qualities: [75, 90],
         remotePatterns: [
             {
                 protocol: 'https',
@@ -36,6 +38,7 @@ const nextConfig: NextConfig = {
         silenceDeprecations: ['legacy-js-api'],
     },
     experimental: {
+        turbopackFileSystemCacheForDev: true,
         // dynamicIO: true,
         // cacheLife: {
         //     render: {
@@ -60,6 +63,23 @@ const nextConfig: NextConfig = {
         });
 
         return config;
+    },
+    async headers() {
+        return [
+            {
+                source: '/:path*',
+                headers: [
+                    {
+                        key: 'X-Frame-Options',
+                        value: 'SAMEORIGIN',
+                    },
+                    {
+                        key: 'Content-Security-Policy',
+                        value: `frame-ancestors 'self' https://app.contentful.com`,
+                    },
+                ],
+            },
+        ];
     },
 };
 

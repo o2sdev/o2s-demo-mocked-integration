@@ -6,9 +6,12 @@ import { cn } from '@o2s/ui/lib/utils';
 
 import { toggleVariants } from '@o2s/ui/elements/toggle';
 
-const ToggleGroupContext = React.createContext<VariantProps<typeof toggleVariants>>({
+const ToggleGroupContext = React.createContext<
+    VariantProps<typeof toggleVariants> & { currentValue?: string | string[] }
+>({
     size: 'default',
     variant: 'default',
+    currentValue: undefined,
 });
 
 const toggleGroupVariants = cva('flex items-center justify-center gap-1', {
@@ -24,11 +27,11 @@ const toggleGroupVariants = cva('flex items-center justify-center gap-1', {
     },
 });
 
-const ToggleGroup = React.forwardRef<
-    React.ElementRef<typeof ToggleGroupPrimitive.Root>,
-    React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Root> & VariantProps<typeof toggleVariants>
->(({ className, variant, size, children, ...props }, ref) => {
+type ToggleGroupProps = React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Root> &
+    VariantProps<typeof toggleVariants> & { ref?: React.Ref<React.ComponentRef<typeof ToggleGroupPrimitive.Root>> };
+const ToggleGroup = ({ className, variant, size, children, ref, ...props }: ToggleGroupProps) => {
     const context = React.useContext(ToggleGroupContext);
+    const currentValue = 'value' in props ? props.value : undefined;
 
     return (
         <ToggleGroupPrimitive.Root
@@ -41,36 +44,56 @@ const ToggleGroup = React.forwardRef<
             )}
             {...props}
         >
-            <ToggleGroupContext.Provider value={{ variant, size }}>{children}</ToggleGroupContext.Provider>
+            <ToggleGroupContext.Provider value={{ variant, size, currentValue }}>
+                {children}
+            </ToggleGroupContext.Provider>
         </ToggleGroupPrimitive.Root>
     );
-});
+};
 
-ToggleGroup.displayName = ToggleGroupPrimitive.Root.displayName;
+type ToggleGroupItemProps = React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item> &
+    VariantProps<typeof toggleVariants> & {
+        ref?: React.Ref<React.ComponentRef<typeof ToggleGroupPrimitive.Item>>;
+        activeIcon?: React.ReactNode;
+        iconPosition?: 'left' | 'right';
+    };
+const ToggleGroupItem = React.forwardRef<React.ComponentRef<typeof ToggleGroupPrimitive.Item>, ToggleGroupItemProps>(
+    ({ className, children, variant, size, activeIcon, value, iconPosition = 'left', ...props }, ref) => {
+        const context = React.useContext(ToggleGroupContext);
 
-const ToggleGroupItem = React.forwardRef<
-    React.ElementRef<typeof ToggleGroupPrimitive.Item>,
-    React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item> & VariantProps<typeof toggleVariants>
->(({ className, children, variant, size, ...props }, ref) => {
-    const context = React.useContext(ToggleGroupContext);
+        // Check if this item is active by comparing its value with the current value from ToggleGroup
+        const isActive =
+            context.currentValue !== undefined &&
+            value !== undefined &&
+            (Array.isArray(context.currentValue)
+                ? context.currentValue.includes(value)
+                : context.currentValue === value);
 
-    return (
-        <ToggleGroupPrimitive.Item
-            ref={ref}
-            className={cn(
-                toggleVariants({
-                    variant: context.variant || variant,
-                    size: context.size || size,
-                }),
-                className,
-            )}
-            {...props}
-        >
-            {children}
-        </ToggleGroupPrimitive.Item>
-    );
-});
+        const iconElement =
+            activeIcon && isActive ? <span className="inline-flex items-center">{activeIcon}</span> : null;
 
-ToggleGroupItem.displayName = ToggleGroupPrimitive.Item.displayName;
+        return (
+            <ToggleGroupPrimitive.Item
+                ref={ref}
+                className={cn(
+                    toggleVariants({
+                        variant: context.variant || variant,
+                        size: context.size || size,
+                    }),
+                    className,
+                )}
+                value={value}
+                {...props}
+            >
+                <span className="flex items-center gap-2">
+                    {iconPosition === 'left' && iconElement}
+                    {children}
+                    {iconPosition === 'right' && iconElement}
+                </span>
+            </ToggleGroupPrimitive.Item>
+        );
+    },
+);
+ToggleGroupItem.displayName = 'ToggleGroupItem';
 
 export { ToggleGroup, ToggleGroupItem };

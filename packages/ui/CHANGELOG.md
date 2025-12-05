@@ -1,5 +1,66 @@
 # @o2s/ui
 
+## 1.6.0
+
+### Minor Changes
+
+- 1653b74: fix: update FilterItem and renderCell components for improved functionality and code clarity
+- 2c780d5: conditionally render button in InfoCard for improved layout
+- 1653b74: feat(ui): tile version of data lists
+
+### Patch Changes
+
+- 0354126: reworked turbo dev task to optimize CPU/RAM usage
+- Updated dependencies [2c780d5]
+- Updated dependencies [1653b74]
+- Updated dependencies [c27726a]
+- Updated dependencies [2c780d5]
+- Updated dependencies [0354126]
+- Updated dependencies [1653b74]
+    - @o2s/framework@1.13.0
+
+## 1.5.0
+
+### Minor Changes
+
+- 0d1b8cc: Added Live Preview support in blocks
+- 485731c: enhance Checkbox, Select and Input components with error support
+- 51b17ed: Adding new Carousel component
+- 3da2e69: Added search functionality to invoice list filters
+
+### Patch Changes
+
+- 8ac0de9: added missing dependencies
+- Updated dependencies [0d1b8cc]
+- Updated dependencies [8ac0de9]
+- Updated dependencies [ac245c5]
+- Updated dependencies [3da2e69]
+    - @o2s/framework@1.12.0
+
+## 1.4.0
+
+### Minor Changes
+
+- 9ad8658: added support for prioritizing image rendering in order to disable lazyloading for images above the fold
+- 9ad8658: reduced JS bundle size by not moving to dynamic icon loading
+
+## 1.3.2
+
+### Patch Changes
+
+- 4a42e9c: improvements for knowledge base blocks and layouts
+- Updated dependencies [4a42e9c]
+    - @o2s/framework@1.11.2
+
+## 1.3.1
+
+### Patch Changes
+
+- 5f25529: added stories for UI components
+- Updated dependencies [5f25529]
+- Updated dependencies [5f25529]
+    - @o2s/framework@1.11.1
+
 ## 1.3.0
 
 ### Minor Changes
@@ -16,7 +77,6 @@
 ### Minor Changes
 
 - 027ed39: featuredServiceListBlock - list of available services
-
     - added new UI componetnt from Shadcn - Switch,
     - extended ProductCard with action property,
     - implemented model and mock for FeatureServiceListBlock,
@@ -27,7 +87,6 @@
 ### Minor Changes
 
 - f015c2b: New block ArticleSearch - Input field with suggestions to find appropriate article.
-
     - added new UI component - Command,
     - added new articles mock,
     - added mock for ArticleSearchBlock,
@@ -46,7 +105,6 @@
 
 - 05eea01: chore: update dependencies
 - 44653fb: feat: orderDetails page implemented
-
     - added new UI component: InfoCard,
     - used InfoCard in PaymentsSummaryBlock, OrdersSummary and OrderDetails,
     - fixed ordersSummaryBlock integration with strapi,
@@ -58,7 +116,6 @@
 ### Minor Changes
 
 - 2e4f22d: feat: add scrollable toggle group filter with multiple selection
-
     - Add scroll container for toggle group filter in overlay view
     - Implement multiple selection version for toggle group filter
     - Add support for horizontal scrolling in filter items
@@ -71,14 +128,12 @@
 - 30f3524: added `OrdersSummary` block and reworked mocked orders to return random orders instead of them being hardcoded
 - 8b93cbf: feat: Integrated SurveyJS
 - 30f3524: feat: implemented orderListBlock
-
     - new page /orders,
     - added strapi integration for page /orders
     - new UI dropdown-menu component
 
 - 8b93cbf: feat: implement surveyJS forms
 - bb46536: feat: cases submission
-
     - new component DynamicIcon - for loading icons dinamicly,
     - new component ActionLinks - for showing button list with dropdown-menu,
     - new pages: /contact-us, /submit-complaint, /request-device-maintenance,

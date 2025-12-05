@@ -15,9 +15,8 @@
     "scripts": {
         "prepare": "npx prisma generate && tsc && tsc-alias",
         "init": "dotenv -e .env.local -- prisma migrate deploy",
-        "dev": "tsc && (concurrently \"tsc -w\" \"tsc-alias -w\")",
-        "build": "dotenv -e .env.local -- prisma migrate deploy && tsc && tsc-alias",
-        "lint": "tsc --noEmit && eslint . --max-warnings 0",
+        "build": "dotenv -e .env.local -- prisma migrate deploy && tsc --preserveWatchOutput && tsc-alias",
+        "lint": "tsc --noEmit && eslint . --max-warnings=0",
         "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,scss,json}\"",
         "seed": "dotenv -e .env.local -- tsx prisma/seed.ts"
     },
@@ -25,28 +24,29 @@
         "seed": "tsx prisma/seed.ts"
     },
     "dependencies": {
-        "@auth/prisma-adapter": "^2.9.1",
-        "@prisma/client": "^6.8.2",
-        "bcryptjs": "^3.0.2",
-        "dotenv-cli": "^8.0.0",
-        "jsonwebtoken": "^9.0.2",
-        "prisma": "^6.8.2",
-        "@o2s/framework": "^1.11.0",
-        "@o2s/utils.logger": "^1.1.0"
+        "@auth/prisma-adapter": "^2.11.1",
+        "@prisma/client": "^6.19.0",
+        "bcryptjs": "^3.0.3",
+        "dotenv-cli": "^11.0.0",
+        "jsonwebtoken": "^9.0.3",
+        "prisma": "^6.19.0",
+        "@o2s/framework": "*",
+        "@o2s/utils.logger": "*"
     },
     "devDependencies": {
-        "@types/jsonwebtoken": "^9.0.9",
+        "@types/jsonwebtoken": "^9.0.10",
         "@o2s/eslint-config": "*",
+        "@o2s/lint-staged-config": "*",
         "@o2s/prettier-config": "*",
         "@o2s/typescript-config": "*",
-        "concurrently": "^9.1.2",
-        "eslint": "^9.27.0",
-        "prettier": "^3.5.3",
+        "concurrently": "^9.2.1",
+        "eslint": "^9.39.1",
+        "prettier": "^3.7.4",
         "tsc-alias": "^1.8.16",
-        "typescript": "^5.8.3"
+        "typescript": "^5.9.3"
     },
     "peerDependencies": {
-        "next-auth": "^5.0.0-beta.27",
-        "zod": "^3.25.4"
+        "next-auth": "^5.0.0-beta.30",
+        "zod": "^3.25.4 || ^4.0.0"
     }
 }
