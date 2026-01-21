@@ -2,7 +2,7 @@ import { Articles, CMS } from '@o2s/configs.integrations';
 
 import { Auth } from '@o2s/framework/modules';
 
-import { getHasAccess } from '@o2s/api-harmonization/utils/permissions';
+import { getHasAccess } from '../../utils/permissions';
 
 import { Breadcrumb, Init, Page } from './page.model';
 

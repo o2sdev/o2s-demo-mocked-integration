@@ -5,7 +5,7 @@ import { Observable, concatMap, forkJoin, map, of, switchMap } from 'rxjs';
 
 import { Models } from '@o2s/utils.api-harmonization';
 
-import { checkPermissions } from '@o2s/api-harmonization/utils/permissions';
+import { checkPermissions } from '../../utils/permissions';
 
 import { mapArticle, mapInit, mapPage } from './page.mapper';
 import { Init, NotFound, Page } from './page.model';
