@@ -29,6 +29,7 @@ export function DesktopNavigation({
     logoSlot,
     contextSlot,
     localeSlot,
+    cartSlot,
     notificationSlot,
     userSlot,
     items,
@@ -42,21 +43,60 @@ export function DesktopNavigation({
     // Show sign in button if user is not signed in, container allows it, and signInLabel is available
     const showSignInButton = shouldIncludeSignInButton && !isSignedIn && signInLabel;
 
-    const activeNavigationGroup = items.find((item) => {
-        if (item.__typename === 'NavigationGroup') {
-            return item.items
-                .filter((item) => item.__typename === 'NavigationItem')
-                .some((item) => {
-                    if (pathname !== '/') {
-                        return item.url !== '/' && item.url && pathname.startsWith(item.url);
-                    }
+    // Recursive function to calculate the best score for a navigation group
+    const calculateGroupBestScore = (
+        groupItems: (Models.Navigation.NavigationItem | Models.Navigation.NavigationGroup)[],
+    ): number => {
+        let bestScore = 0;
 
-                    return item.url && pathname.startsWith(item.url);
-                });
+        for (const groupItem of groupItems) {
+            if (groupItem.__typename === 'NavigationItem') {
+                // Calculate score for NavigationItem
+                if (!groupItem.url) continue;
+
+                let score = 0;
+                if (pathname === groupItem.url) {
+                    score = groupItem.url.length + 1000;
+                } else if (
+                    groupItem.url === '/'
+                        ? pathname.startsWith('/')
+                        : pathname.startsWith(groupItem.url.replace(/\/$/, '') + '/')
+                ) {
+                    score = groupItem.url.length;
+                }
+
+                if (score > bestScore) {
+                    bestScore = score;
+                }
+            } else if (groupItem.__typename === 'NavigationGroup') {
+                // Recursively calculate score for nested NavigationGroup
+                const nestedScore = calculateGroupBestScore(groupItem.items);
+                if (nestedScore > bestScore) {
+                    bestScore = nestedScore;
+                }
+            }
         }
 
-        return item.url && pathname.includes(item.url);
-    });
+        return bestScore;
+    };
+
+    const activeNavigationGroup = items.reduce<{
+        group: Models.Navigation.NavigationGroup;
+        score: number;
+    } | null>((best, item) => {
+        if (item.__typename !== 'NavigationGroup') return best;
+
+        // Calculate best score for this group recursively (including nested groups)
+        const groupBestScore = calculateGroupBestScore(item.items);
+
+        if (groupBestScore === 0) return best;
+
+        if (!best || groupBestScore > best.score) {
+            return { group: item, score: groupBestScore };
+        }
+
+        return best;
+    }, null)?.group;
 
     const navigationItemClass = cn(navigationMenuTriggerStyle());
 
@@ -190,6 +230,9 @@ export function DesktopNavigation({
                                 <NextLink href={LOGIN_PATH}>{signInLabel}</NextLink>
                             </Button>
                         )}
+
+                        {/* Cart Button */}
+                        {cartSlot}
 
                         {/* Notification Button */}
                         {notificationSlot}

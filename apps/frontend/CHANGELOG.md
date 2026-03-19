@@ -1,5 +1,297 @@
 # @o2s/frontend
 
+## 1.18.1
+
+### Patch Changes
+
+- 338cb01: Introduce typed header name constants (`HeaderName`) using `as const` and
+  replace selected magic header strings in API harmonization and frontend code.
+
+    Update SDK header typing to use `AppHeaders` for stronger request typing.
+
+- 338cb01: Replace the `renderBlocks` switch with a typed block registry to enforce
+  compile-time coverage of all `Modules.Page.Model.Blocks` entries.
+
+    Keep runtime handling for unknown block types with a warning log and `null`
+    fallback.
+
+- 338cb01: Add a warning log in `renderBlocks` when an unknown block type is encountered.
+
+    This makes missing block registration visible during development instead of silently rendering `null`.
+
+- Updated dependencies [fadbc63]
+- Updated dependencies [fadbc63]
+- Updated dependencies [338cb01]
+- Updated dependencies [338cb01]
+- Updated dependencies [338cb01]
+- Updated dependencies [338cb01]
+    - @o2s/framework@1.20.1
+    - @o2s/blocks.article@1.5.2
+    - @o2s/blocks.article-list@1.6.2
+    - @o2s/blocks.article-search@1.6.2
+    - @o2s/blocks.bento-grid@0.6.2
+    - @o2s/blocks.category@1.6.2
+    - @o2s/blocks.category-list@1.6.2
+    - @o2s/blocks.cta-section@0.6.2
+    - @o2s/blocks.document-list@0.6.2
+    - @o2s/blocks.faq@1.5.2
+    - @o2s/blocks.feature-section@0.6.2
+    - @o2s/blocks.feature-section-grid@0.5.2
+    - @o2s/blocks.featured-service-list@1.4.2
+    - @o2s/blocks.hero-section@0.6.2
+    - @o2s/blocks.invoice-list@1.6.2
+    - @o2s/blocks.media-section@0.6.2
+    - @o2s/blocks.notification-details@1.5.2
+    - @o2s/blocks.notification-list@1.6.2
+    - @o2s/blocks.notification-summary@1.3.2
+    - @o2s/blocks.order-details@1.5.2
+    - @o2s/blocks.order-list@1.6.2
+    - @o2s/blocks.orders-summary@1.5.2
+    - @o2s/blocks.payments-history@1.4.2
+    - @o2s/blocks.payments-summary@1.4.2
+    - @o2s/blocks.pricing-section@0.6.2
+    - @o2s/blocks.product-details@0.3.1
+    - @o2s/blocks.product-list@0.5.1
+    - @o2s/blocks.quick-links@1.5.2
+    - @o2s/blocks.recommended-products@0.3.1
+    - @o2s/blocks.service-details@1.4.2
+    - @o2s/blocks.service-list@1.5.2
+    - @o2s/blocks.surveyjs-form@1.4.2
+    - @o2s/blocks.ticket-details@1.5.2
+    - @o2s/blocks.ticket-list@1.7.2
+    - @o2s/blocks.ticket-recent@1.4.2
+    - @o2s/blocks.ticket-summary@1.3.2
+    - @o2s/blocks.user-account@1.4.2
+    - @o2s/utils.api-harmonization@0.3.3
+    - @o2s/integrations.mocked@1.21.1
+
+## 1.18.0
+
+### Minor Changes
+
+- 375cd90: feat(blocks, ui): add variantId support to cart item handling, enhance add-to-cart toast with product name and cart link action across ProductDetails, ProductList and RecommendedProducts blocks
+
+### Patch Changes
+
+- Updated dependencies [83a3d13]
+- Updated dependencies [375cd90]
+- Updated dependencies [375cd90]
+- Updated dependencies [98b2e68]
+    - @o2s/blocks.article-list@1.6.1
+    - @o2s/blocks.article-search@1.6.1
+    - @o2s/blocks.article@1.5.1
+    - @o2s/blocks.bento-grid@0.6.1
+    - @o2s/blocks.category-list@1.6.1
+    - @o2s/blocks.category@1.6.1
+    - @o2s/blocks.cta-section@0.6.1
+    - @o2s/blocks.document-list@0.6.1
+    - @o2s/blocks.faq@1.5.1
+    - @o2s/blocks.feature-section-grid@0.5.1
+    - @o2s/blocks.feature-section@0.6.1
+    - @o2s/blocks.featured-service-list@1.4.1
+    - @o2s/blocks.hero-section@0.6.1
+    - @o2s/blocks.invoice-list@1.6.1
+    - @o2s/blocks.media-section@0.6.1
+    - @o2s/blocks.notification-details@1.5.1
+    - @o2s/blocks.notification-list@1.6.1
+    - @o2s/blocks.notification-summary@1.3.1
+    - @o2s/blocks.order-details@1.5.1
+    - @o2s/blocks.order-list@1.6.1
+    - @o2s/blocks.orders-summary@1.5.1
+    - @o2s/blocks.payments-history@1.4.1
+    - @o2s/blocks.payments-summary@1.4.1
+    - @o2s/blocks.pricing-section@0.6.1
+    - @o2s/blocks.product-details@0.3.0
+    - @o2s/blocks.product-list@0.5.0
+    - @o2s/blocks.quick-links@1.5.1
+    - @o2s/blocks.recommended-products@0.3.0
+    - @o2s/blocks.service-details@1.4.1
+    - @o2s/blocks.service-list@1.5.1
+    - @o2s/blocks.surveyjs-form@1.4.1
+    - @o2s/blocks.ticket-details@1.5.1
+    - @o2s/blocks.ticket-list@1.7.1
+    - @o2s/blocks.ticket-recent@1.4.1
+    - @o2s/blocks.ticket-summary@1.3.1
+    - @o2s/blocks.user-account@1.4.1
+    - @o2s/framework@1.20.0
+    - @o2s/integrations.mocked@1.21.0
+    - @o2s/utils.api-harmonization@0.3.2
+    - @o2s/utils.frontend@0.5.1
+    - @o2s/ui@1.13.0
+
+## 1.17.0
+
+### Minor Changes
+
+- 0e61431: feat: update page model and integration to support redirects
+- 5d36519: Added new blocks: Cart, Checkout (Summary, Shipping Address, Company Data, Billing Payment) and Order Confirmation. Includes checkout forms validation (Formik + Yup), error handling, promo code support in cart, and new UI components (StepIndicator, RadioTile, AddressFields, CartSummary, QuantityInput, FormField).
+
+### Patch Changes
+
+- Updated dependencies [5d36519]
+- Updated dependencies [0e61431]
+- Updated dependencies [5d36519]
+    - @o2s/framework@1.19.0
+    - @o2s/integrations.mocked@1.20.0
+    - @o2s/utils.frontend@0.5.0
+    - @o2s/ui@1.12.0
+
+## 1.16.0
+
+### Minor Changes
+
+- 600d5ac: chore: add create-o2s-app flag to package.json in all blocks and integrations
+
+### Patch Changes
+
+- 1804016: update article slugs to be relative and adjust mapping logic
+- Updated dependencies [9678d12]
+- Updated dependencies [46d4077]
+- Updated dependencies [a288b11]
+- Updated dependencies [09d7b17]
+- Updated dependencies [bbb3b89]
+- Updated dependencies [c6ae8e6]
+- Updated dependencies [c6ae8e6]
+- Updated dependencies [8529002]
+- Updated dependencies [3b8ab83]
+- Updated dependencies [1f2965c]
+- Updated dependencies [88d180a]
+- Updated dependencies [1804016]
+- Updated dependencies [fcf14d2]
+- Updated dependencies [c6ae8e6]
+- Updated dependencies [c6ae8e6]
+- Updated dependencies [c413a8b]
+- Updated dependencies [8c01be4]
+- Updated dependencies [600d5ac]
+- Updated dependencies [ea200fc]
+- Updated dependencies [cc2e932]
+    - @o2s/blocks.surveyjs-form@1.4.0
+    - @o2s/framework@1.18.0
+    - @o2s/blocks.article-list@1.6.0
+    - @o2s/blocks.article-search@1.6.0
+    - @o2s/blocks.article@1.5.0
+    - @o2s/blocks.bento-grid@0.6.0
+    - @o2s/blocks.category-list@1.6.0
+    - @o2s/blocks.category@1.6.0
+    - @o2s/blocks.cta-section@0.6.0
+    - @o2s/blocks.document-list@0.6.0
+    - @o2s/blocks.faq@1.5.0
+    - @o2s/blocks.feature-section-grid@0.5.0
+    - @o2s/blocks.feature-section@0.6.0
+    - @o2s/blocks.featured-service-list@1.4.0
+    - @o2s/blocks.hero-section@0.6.0
+    - @o2s/blocks.invoice-list@1.6.0
+    - @o2s/blocks.media-section@0.6.0
+    - @o2s/blocks.notification-details@1.5.0
+    - @o2s/blocks.notification-list@1.6.0
+    - @o2s/blocks.notification-summary@1.3.0
+    - @o2s/blocks.order-details@1.5.0
+    - @o2s/blocks.order-list@1.6.0
+    - @o2s/blocks.orders-summary@1.5.0
+    - @o2s/blocks.payments-history@1.4.0
+    - @o2s/blocks.payments-summary@1.4.0
+    - @o2s/blocks.pricing-section@0.6.0
+    - @o2s/blocks.product-details@0.2.0
+    - @o2s/blocks.product-list@0.4.0
+    - @o2s/blocks.quick-links@1.5.0
+    - @o2s/blocks.recommended-products@0.2.0
+    - @o2s/blocks.service-details@1.4.0
+    - @o2s/blocks.service-list@1.5.0
+    - @o2s/blocks.ticket-details@1.5.0
+    - @o2s/blocks.ticket-list@1.7.0
+    - @o2s/blocks.ticket-recent@1.4.0
+    - @o2s/blocks.ticket-summary@1.3.0
+    - @o2s/blocks.user-account@1.4.0
+    - @o2s/integrations.mocked@1.19.0
+    - @o2s/utils.api-harmonization@0.3.1
+    - @o2s/utils.frontend@0.4.1
+    - @o2s/ui@1.11.0
+
+## 1.15.1
+
+### Patch Changes
+
+- 8421a6a: fix(frontend): improve URL match for active navigation group detection
+- Updated dependencies [dadd9ba]
+- Updated dependencies [7305d03]
+- Updated dependencies [5aba06c]
+- Updated dependencies [8702f91]
+- Updated dependencies [002ff11]
+- Updated dependencies [3e14803]
+    - @o2s/framework@1.17.0
+    - @o2s/blocks.category-list@1.5.0
+    - @o2s/blocks.article-list@1.5.0
+    - @o2s/integrations.mocked@1.18.0
+    - @o2s/ui@1.10.0
+    - @o2s/blocks.article-search@1.5.0
+    - @o2s/blocks.category@1.5.0
+    - @o2s/blocks.surveyjs-form@1.3.1
+
+## 1.15.0
+
+### Minor Changes
+
+- 72391c1: ### Authorization & PBAC Implementation
+
+    This release introduces a comprehensive Policy-Based Access Control system interlaced with Role-Based Access Control.
+
+    #### Framework & Core
+    - **`@o2s/framework` (AuthService)**: Enhanced with abstract permission logic (`getPermissions`, `hasPermission`), role checks (`hasRole`, `requireRoles`), and action batching (`canPerformActions`).
+    - **`@o2s/api-harmonization`**: Implemented global `RolesGuard` and `PermissionsGuard` in `AppModule`.
+    - **`@o2s/utils.api-harmonization`**: Added `extractUserRolesFromJwt` to unify role extraction from different JWT claims.
+
+    #### Features
+    - **Decorators**: New `@Auth.Decorators.Permissions({ resource, actions })` for securing controllers.
+    - **Data Filtering**: Mappers (e.g., `page.mapper.ts`) now filter UI elements (header/footer navigation) based on user roles.
+
+    This provides granular control over resource access and UI visibility based on user roles and permissions.
+
+### Patch Changes
+
+- Updated dependencies [1a5a22d]
+- Updated dependencies [72391c1]
+    - @o2s/blocks.ticket-details@1.4.0
+    - @o2s/blocks.ticket-recent@1.3.0
+    - @o2s/integrations.mocked@1.17.0
+    - @o2s/blocks.ticket-list@1.6.0
+    - @o2s/framework@1.16.0
+    - @o2s/blocks.featured-service-list@1.3.0
+    - @o2s/blocks.notification-details@1.4.0
+    - @o2s/blocks.notification-summary@1.2.0
+    - @o2s/blocks.notification-list@1.5.0
+    - @o2s/blocks.payments-history@1.3.0
+    - @o2s/blocks.payments-summary@1.3.0
+    - @o2s/utils.api-harmonization@0.3.0
+    - @o2s/blocks.product-details@0.1.0
+    - @o2s/blocks.service-details@1.3.0
+    - @o2s/blocks.orders-summary@1.4.0
+    - @o2s/blocks.ticket-summary@1.2.0
+    - @o2s/blocks.order-details@1.4.0
+    - @o2s/blocks.article-list@1.4.0
+    - @o2s/blocks.invoice-list@1.5.0
+    - @o2s/blocks.product-list@0.3.0
+    - @o2s/blocks.service-list@1.4.0
+    - @o2s/blocks.user-account@1.3.0
+    - @o2s/blocks.order-list@1.5.0
+    - @o2s/blocks.category@1.4.0
+    - @o2s/blocks.article@1.4.0
+    - @o2s/blocks.article-search@1.4.0
+    - @o2s/blocks.bento-grid@0.5.0
+    - @o2s/blocks.category-list@1.4.0
+    - @o2s/blocks.cta-section@0.5.0
+    - @o2s/blocks.document-list@0.5.0
+    - @o2s/blocks.faq@1.4.0
+    - @o2s/blocks.feature-section@0.5.0
+    - @o2s/blocks.feature-section-grid@0.4.0
+    - @o2s/blocks.hero-section@0.5.0
+    - @o2s/blocks.media-section@0.5.0
+    - @o2s/blocks.pricing-section@0.5.0
+    - @o2s/blocks.quick-links@1.4.0
+    - @o2s/blocks.recommended-products@0.1.0
+    - @o2s/blocks.surveyjs-form@1.3.0
+    - @o2s/ui@1.9.0
+    - @o2s/utils.frontend@0.4.0
+
 ## 1.14.0
 
 ### Minor Changes

@@ -31,7 +31,6 @@ const MAX_PASSWORD_CHARS = 64;
 
 export const SignInForm: React.FC<SignInFormProps> = ({ providers, labels, onSignIn }) => {
     const t = useTranslations();
-
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [error, setError] = useState<AuthError | null>(null);
@@ -68,7 +67,6 @@ export const SignInForm: React.FC<SignInFormProps> = ({ providers, labels, onSig
                     </Typography>
                 )}
             </div>
-
             <Alert variant="destructive" className="flex flex-col gap-2">
                 {t('loginHint.title')}
                 <Typography variant="small">
@@ -77,7 +75,6 @@ export const SignInForm: React.FC<SignInFormProps> = ({ providers, labels, onSig
                     {t('loginHint.password')}: admin
                 </Typography>
             </Alert>
-
             {error && (
                 <Alert variant="destructive">
                     <AlertCircle className="h-4 w-4 mt-1" />

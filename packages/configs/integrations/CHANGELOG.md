@@ -1,5 +1,81 @@
 # @o2s/configs.integrations
 
+## 0.6.0
+
+### Minor Changes
+
+- 1f2965c: feat(products): Medusa integration for product catalog
+    - Add product list and product detail pages powered by Medusa Admin SDK
+    - Support SEO-friendly URLs using product handles and variant slugs (e.g. `/products/sweatpants/s-blue`)
+    - Add variant selection with option-based navigation between product variants
+    - Map Medusa product data (prices, categories, tags, images, specs) to the unified product model
+    - Extract key specs and detailed specs from Medusa variant metadata and attributes
+    - Add related products support via custom Medusa product references API
+    - Implement lazy initialization for MedusaJS service to improve startup performance
+    - Add localized mocked product data (EN, DE, PL) with variant overrides for testing
+
+### Patch Changes
+
+- 8c01be4: added README
+- Updated dependencies [46d4077]
+- Updated dependencies [a288b11]
+- Updated dependencies [09d7b17]
+- Updated dependencies [bbb3b89]
+- Updated dependencies [c6ae8e6]
+- Updated dependencies [3b8ab83]
+- Updated dependencies [1f2965c]
+- Updated dependencies [88d180a]
+- Updated dependencies [1804016]
+- Updated dependencies [c6ae8e6]
+- Updated dependencies [8c01be4]
+- Updated dependencies [600d5ac]
+- Updated dependencies [ea200fc]
+    - @o2s/framework@1.18.0
+    - @o2s/integrations.mocked@1.19.0
+
+## 0.5.0
+
+### Minor Changes
+
+- 5aba06c: add Zendesk Help Center articles integration
+- 8702f91: feat(zendesk): remove hardcoded locale base paths from article slugs
+
+### Patch Changes
+
+- Updated dependencies [dadd9ba]
+- Updated dependencies [7305d03]
+- Updated dependencies [5aba06c]
+- Updated dependencies [8702f91]
+- Updated dependencies [002ff11]
+    - @o2s/framework@1.17.0
+    - @o2s/integrations.mocked@1.18.0
+
+## 0.4.0
+
+### Minor Changes
+
+- 72391c1: ### Authorization & PBAC Implementation
+
+    This release introduces a comprehensive Policy-Based Access Control system interlaced with Role-Based Access Control.
+
+    #### Framework & Core
+    - **`@o2s/framework` (AuthService)**: Enhanced with abstract permission logic (`getPermissions`, `hasPermission`), role checks (`hasRole`, `requireRoles`), and action batching (`canPerformActions`).
+    - **`@o2s/api-harmonization`**: Implemented global `RolesGuard` and `PermissionsGuard` in `AppModule`.
+    - **`@o2s/utils.api-harmonization`**: Added `extractUserRolesFromJwt` to unify role extraction from different JWT claims.
+
+    #### Features
+    - **Decorators**: New `@Auth.Decorators.Permissions({ resource, actions })` for securing controllers.
+    - **Data Filtering**: Mappers (e.g., `page.mapper.ts`) now filter UI elements (header/footer navigation) based on user roles.
+
+    This provides granular control over resource access and UI visibility based on user roles and permissions.
+
+### Patch Changes
+
+- Updated dependencies [1a5a22d]
+- Updated dependencies [72391c1]
+    - @o2s/integrations.mocked@1.17.0
+    - @o2s/framework@1.16.0
+
 ## 0.3.0
 
 ### Minor Changes
