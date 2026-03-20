@@ -8,7 +8,7 @@ import * as Auth from '@o2s/integrations.auth-postgresql/auth';
 
 import { sdk } from '@/api/sdk';
 
-const DEFAULT_ROLE = process.env.AUTH_DEFAULT_USER_ROLE!;
+const _DEFAULT_ROLE = process.env.AUTH_DEFAULT_USER_ROLE!;
 
 type JwtCallbackParams = {
     token: JWT;

@@ -8,6 +8,13 @@
       "when": 1774003609231,
       "tag": "0000_misty_jubilee",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1774014155306,
+      "tag": "0001_sudden_jazinda",
+      "breakpoints": true
     }
   ]
 }

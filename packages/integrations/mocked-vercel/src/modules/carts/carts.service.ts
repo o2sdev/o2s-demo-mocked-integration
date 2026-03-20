@@ -389,34 +389,18 @@ export class CartsService extends Carts.Service {
             );
         }
 
-        // No cartId provided — find or create cart
-        const findOrCreate$ = customerId
-            ? from(this.fetchCartByCustomerId(customerId)).pipe(
-                  switchMap((cart) => {
-                      if (cart) return of(cart);
-                      if (!data.currency) {
-                          throw new BadRequestException('Currency is required when creating a new cart');
-                      }
-                      return from(
-                          this.insertCart({
-                              customerId,
-                              currency: data.currency,
-                              regionId: data.regionId,
-                          }),
-                      );
-                  }),
-              )
-            : (() => {
-                  if (!data.currency) {
-                      throw new BadRequestException('Currency is required when creating a new cart');
-                  }
-                  return from(
-                      this.insertCart({
-                          currency: data.currency,
-                          regionId: data.regionId,
-                      }),
-                  );
-              })();
+        // No cartId provided — always create a new cart per session
+        // (avoids sharing carts when multiple people use the same demo account)
+        if (!data.currency) {
+            throw new BadRequestException('Currency is required when creating a new cart');
+        }
+        const findOrCreate$ = from(
+            this.insertCart({
+                customerId,
+                currency: data.currency,
+                regionId: data.regionId,
+            }),
+        );
 
         return findOrCreate$.pipe(
             switchMap((cart) => from(this.persistAddCartItem(cart.id, data, data.locale))),
@@ -515,18 +499,10 @@ export class CartsService extends Carts.Service {
         );
     }
 
-    getCurrentCart(authorization: string | undefined): Observable<Carts.Model.Cart | undefined> {
-        let customerId: string | undefined;
-
-        if (authorization) {
-            customerId = this.authService.getCustomerId(authorization);
-        }
-
-        if (!customerId) {
-            return of(undefined);
-        }
-
-        return from(this.fetchCartByCustomerId(customerId));
+    getCurrentCart(_authorization: string | undefined): Observable<Carts.Model.Cart | undefined> {
+        // Always return undefined — cart identity is managed client-side via localStorage
+        // to avoid sharing carts when multiple people use the same demo account
+        return of(undefined);
     }
 
     prepareCheckout(

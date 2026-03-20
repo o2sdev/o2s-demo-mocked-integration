@@ -1,15 +1,39 @@
 # @o2s/integrations.mocked-vercel
 
-Drop-in replacement for the `@o2s/integrations.mocked` **carts** module that persists cart data in PostgreSQL instead of in-memory. Designed for Vercel's serverless infrastructure where each request may hit a different instance, causing in-memory state to be lost.
+Drop-in replacement for the `@o2s/integrations.mocked` **carts**, **orders**, and **checkout** modules that persists data in PostgreSQL instead of in-memory. Designed for Vercel's serverless infrastructure where each request may hit a different instance, causing in-memory state to be lost.
 
-All other modules (products, checkout, payments, CMS, etc.) remain unchanged from the base `mocked` integration.
+All other modules (products, payments, CMS, etc.) remain unchanged from the base `mocked` integration.
+
+## Why this exists
+
+The base `mocked` integration stores carts and placed orders in-memory. On Vercel (serverless), this causes two problems:
+
+1. **Carts disappear** — adding items to a cart works on one invocation, but a subsequent request may hit a different instance where that cart doesn't exist.
+2. **Orders are lost** — after checkout, the placed order is pushed to an in-memory array. Viewing the order on the confirmation page or in the order list fails if the request lands on a different instance.
+
+Additionally, because the demo app has a single shared user account, all visitors would see each other's cart items. This integration creates **session-isolated carts** — each browser session gets its own cart via `localStorage`, so carts are never shared between visitors.
 
 ## How it works
 
+### Carts
 - Uses [Drizzle ORM](https://orm.drizzle.team/) with [`@vercel/postgres`](https://vercel.com/docs/storage/vercel-postgres) for connection pooling
-- Two tables: `carts` and `cart_items` (with cascade delete)
+- Tables: `carts` and `cart_items` (with cascade delete)
 - Product data is denormalized as a JSONB snapshot in `cart_items`
-- Same auth checks and business logic as the base mocked integration
+- **Session-isolated**: `addCartItem` always creates a new cart when no `cartId` is provided (instead of looking up by `customerId`), so each browser session gets its own cart stored in `localStorage`
+- `getCurrentCart` returns `undefined` — cart identity is managed client-side to prevent sharing between sessions
+
+### Orders
+- Tables: `orders` and `order_items` (with cascade delete)
+- `getOrder` checks PostgreSQL first (for orders placed via checkout), then falls back to deterministic mock data
+- `getOrderList` merges DB orders with mock data, applies filtering/sorting/pagination
+- Mock data uses a seeded PRNG for deterministic results across serverless invocations
+
+### Checkout
+- `placeOrder` persists the order to PostgreSQL (instead of pushing to an in-memory array) and deletes the cart from the database
+- All other checkout operations (`setAddresses`, `setShippingMethod`, `setPayment`, etc.) delegate to the cart service as before
+
+### Data anonymization
+Since this is a public demo app, personal data entered during checkout (names, addresses, emails, phone numbers) is **anonymized before being stored** in the database. The `anonymizeOrder` function replaces PII with random placeholder values while preserving the data structure so the order renders correctly. The original data is returned to the user in the API response (for the order confirmation page) but never persisted.
 
 ## Prerequisites
 
@@ -43,11 +67,15 @@ cd packages/integrations/mocked-vercel
 npm run db:migrate
 ```
 
-This applies the SQL migration in `drizzle/` that creates the `carts` and `cart_items` tables.
+This applies the SQL migrations in `drizzle/` that create the `carts`, `cart_items`, `orders`, and `order_items` tables.
 
 ### 4. Enable the integration
 
-In `packages/configs/integrations/src/models/carts.ts`, swap the import:
+In the following config files under `packages/configs/integrations/src/models/`, swap the import to use the mocked-vercel integration:
+
+- `carts.ts`
+- `orders.ts`
+- `checkout.ts`
 
 ```typescript
 // Before (in-memory):
@@ -98,7 +126,7 @@ cd ../../..
 npm run dev
 ```
 
-Test cart operations in the browser — add items, refresh the page, and verify the cart persists.
+Test cart and checkout operations in the browser — add items, refresh the page, verify the cart persists, complete a checkout, and verify the order appears on the confirmation page and in the order list.
 
 ## Drizzle commands
 
@@ -118,6 +146,6 @@ npm run db:push
 npm run db:studio
 ```
 
-## Reverting to in-memory carts
+## Reverting to in-memory storage
 
-Change the import in `packages/configs/integrations/src/models/carts.ts` back to `@o2s/integrations.mocked/integration` and rebuild. No database cleanup is required — the tables can be left in place or dropped manually.
+Change the imports in `packages/configs/integrations/src/models/carts.ts`, `orders.ts`, and `checkout.ts` back to `@o2s/integrations.mocked/integration` and rebuild. No database cleanup is required — the tables can be left in place or dropped manually.

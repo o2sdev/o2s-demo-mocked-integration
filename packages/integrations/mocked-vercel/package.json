@@ -5,7 +5,9 @@
     "license": "MIT",
     "description": "Mocked integration for O2S on Vercel, replacing in-memory cart storage with PostgreSQL via Drizzle ORM.",
     "o2sModules": [
-        "carts"
+        "carts",
+        "orders",
+        "checkout"
     ],
     "keywords": [
         "o2s",
