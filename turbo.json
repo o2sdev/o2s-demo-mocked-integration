@@ -17,7 +17,7 @@
         "build": {
             "cache": true,
             "outputLogs": "new-only",
-            "dependsOn": ["^build"],
+            "dependsOn": ["^build", "@o2s/configs.integrations#build"],
             "inputs": ["$TURBO_DEFAULT$", ".env*"],
             "outputs": ["dist/**", "build/**", ".next/**", "!.next/cache/**"]
         },
