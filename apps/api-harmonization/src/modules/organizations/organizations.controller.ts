@@ -4,7 +4,8 @@ import { Controller, Get, Headers, Query, UseInterceptors } from '@nestjs/common
 import { LoggerService } from '@o2s/utils.logger';
 
 import { AppHeaders } from '@o2s/framework/headers';
-import { Auth } from '@o2s/framework/modules';
+
+// import { Auth } from '@o2s/framework/modules';
 
 import { GetCustomersQuery } from './organizations.request';
 import { OrganizationsService } from './organizations.service';
@@ -15,7 +16,9 @@ export class OrganizationsController {
     constructor(protected readonly service: OrganizationsService) {}
 
     @Get()
-    @Auth.Decorators.Permissions({ resource: 'organizations', actions: ['view'] })
+    // a temporary fix-user with a prospect role does not have permissions to view organizations,
+    // which means that after switching to that role on the froentne there is no way to go back to another
+    // @Auth.Decorators.Permissions({ resource: 'organizations', actions: ['view'] })
     getCustomers(@Headers() headers: AppHeaders, @Query() query: GetCustomersQuery) {
         return this.service.getCustomers(query, headers);
     }
