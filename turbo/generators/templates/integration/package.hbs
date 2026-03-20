@@ -3,6 +3,21 @@
     "version": "0.0.1",
     "private": false,
     "license": "MIT",
+    "description": "{{pascalCase name}} integration for O2S.",
+    "keywords": [
+        "o2s",
+        "integration",
+        "{{kebabCase name}}"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/o2sdev/openselfservice.git",
+        "directory": "packages/integrations/{{kebabCase name}}"
+    },
+    "homepage": "https://github.com/o2sdev/openselfservice/tree/main/packages/integrations/{{kebabCase name}}#readme",
+    "bugs": {
+        "url": "https://github.com/o2sdev/openselfservice/issues"
+    },
     "exports": {
         "./integration": "./dist/integration.js",
         "./sdk": "./dist/sdk/index.js"
@@ -11,8 +26,8 @@
         "dist"
     ],
     "scripts": {
-        "dev": "tsc && (concurrently \"tsc -w\" \"tsc-alias -w\")",
-        "build": "tsc && tsc-alias",
+        "build": "tsc --preserveWatchOutput && tsc-alias",
+        "test": "vitest run",
         "lint": "tsc --noEmit && eslint . --max-warnings=0",
         "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,scss,json}\""
     },
@@ -25,12 +40,14 @@
         "@o2s/lint-staged-config": "*",
         "@o2s/prettier-config": "*",
         "@o2s/typescript-config": "*",
+        "@o2s/vitest-config": "*",
         "concurrently": "^9.1.2",
         "eslint": "^9.24.0",
         "prettier": "^3.5.3",
         "tsc-alias": "^1.8.15",
         "typescript": "^5.8.3"
     },
+    "o2sTemplate": [{{#each templates}}"{{this}}"{{#unless @last}}, {{/unless}}{{/each}}],
     "peerDependencies": {
         "@nestjs/axios": "^4",
         "@nestjs/common": "^11",

@@ -1,15 +1,15 @@
 {
     "general": {
-        "close": "Close",
-        "comingSoon": "This feature is coming soon!"
+        "close": "Schließen",
+        "comingSoon": "Diese Funktion ist in Kürze verfügbar!"
     },
     "demoBar": {
-        "info": "You are currently viewing a demo version, where parts of the app may not be fully ready yet. If you notice any issues or want to give us your feedback, you can",
-        "link": "do it here"
+        "info": "Du siehst derzeit eine Demoversion, in der einige Teile der App möglicherweise noch nicht vollständig fertiggestellt sind. Falls du Probleme bemerkst oder uns dein Feedback geben möchtest, kannst du dies",
+        "link": "hier tun"
     },
     "loginHint": {
-        "title": "To sign in to the demo, you can use the following credentials:",
-        "username": "Username",
-        "password": "Password"
+        "title": "Um sich beim Demo anzumelden, können Sie die folgenden Anmeldedaten verwenden:",
+        "username": "Benutzername",
+        "password": "Passwort"
     }
 }

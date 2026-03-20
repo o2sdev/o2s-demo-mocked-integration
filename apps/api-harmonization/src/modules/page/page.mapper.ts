@@ -2,8 +2,6 @@ import { Articles, CMS } from '@o2s/configs.integrations';
 
 import { Auth } from '@o2s/framework/modules';
 
-import { getHasAccess } from '../../utils/permissions';
-
 import { Breadcrumb, Init, Page } from './page.model';
 
 export const mapPage = (
@@ -33,6 +31,7 @@ export const mapPage = (
             },
             locales,
             theme: page.theme,
+            redirect: page.redirect,
         },
         data: {
             alternativeUrls,
@@ -46,6 +45,7 @@ export const mapArticle = (
     article: Articles.Model.Article,
     category: Articles.Model.Category,
     mainLocale: string,
+    basePath = '/',
 ): Page => {
     return {
         meta: {
@@ -79,7 +79,7 @@ export const mapArticle = (
                 },
             },
             hasOwnTitle: true,
-            breadcrumbs: mapArticleBreadcrumbs(article, category),
+            breadcrumbs: mapArticleBreadcrumbs(article, category, basePath),
         },
     };
 };
@@ -110,30 +110,25 @@ const mapPageBreadcrumbs = (page: CMS.Model.Page.Page): Breadcrumb[] => {
     return breadcrumbs.filter((breadcrumb) => breadcrumb.slug);
 };
 
-const mapArticleBreadcrumbs = (article: Articles.Model.Article, category: Articles.Model.Category): Breadcrumb[] => {
-    const breadcrumbs: Breadcrumb[] = [];
+const mapArticleBreadcrumbs = (
+    article: Articles.Model.Article,
+    category: Articles.Model.Category,
+    basePath = '/',
+): Breadcrumb[] => {
+    // Build full URL paths for breadcrumbs (normalize to avoid double slashes)
+    const categoryUrl = `${basePath}/${category.slug}`.replace(/\/+/g, '/');
+    const articleUrl = `${categoryUrl}/${article.slug}`.replace(/\/+/g, '/');
 
-    function extractFromParent(parent: Articles.Model.Category['parent']): void {
-        if (!parent) return;
-
-        if (parent.parent) {
-            extractFromParent(parent.parent);
-        }
-
-        breadcrumbs.push({
-            slug: parent.slug,
-            label: parent.title,
-        });
-    }
-
-    extractFromParent(category);
-
-    breadcrumbs.push({
-        slug: article.slug,
-        label: article.title,
-    });
-
-    return breadcrumbs.filter((breadcrumb) => breadcrumb.slug);
+    return [
+        {
+            slug: categoryUrl,
+            label: category.title,
+        },
+        {
+            slug: articleUrl,
+            label: article.title,
+        },
+    ];
 };
 
 export const mapInit = (
@@ -145,7 +140,7 @@ export const mapInit = (
     footer: CMS.Model.Footer.Footer,
     labels: CMS.Model.AppConfig.Labels,
     themes: CMS.Model.AppConfig.Themes,
-    roles: Auth.Constants.Roles[],
+    userRoles: string[],
 ): Init => {
     return {
         locales,
@@ -153,12 +148,14 @@ export const mapInit = (
             header: {
                 ...header,
                 items: header.items
-                    .filter((item) => getHasAccess(item.permissions, roles))
+                    .filter((item) => Auth.Service.hasRole(item.roles, userRoles))
                     .map((item) => {
                         if (item.__typename === 'NavigationGroup') {
                             return {
                                 ...item,
-                                items: item.items.filter((childItem) => getHasAccess(childItem.permissions, roles)),
+                                items: item.items.filter((childItem) =>
+                                    Auth.Service.hasRole(childItem.roles, userRoles),
+                                ),
                             };
                         }
                         return item;
@@ -167,12 +164,14 @@ export const mapInit = (
             footer: {
                 ...footer,
                 items: footer.items
-                    .filter((item) => getHasAccess(item.permissions, roles))
+                    .filter((item) => Auth.Service.hasRole(item.roles, userRoles))
                     .map((item) => {
                         if (item.__typename === 'NavigationGroup') {
                             return {
                                 ...item,
-                                items: item.items.filter((childItem) => getHasAccess(childItem.permissions, roles)),
+                                items: item.items.filter((childItem) =>
+                                    Auth.Service.hasRole(childItem.roles, userRoles),
+                                ),
                             };
                         }
                         return item;
