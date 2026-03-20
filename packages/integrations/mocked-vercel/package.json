@@ -1,0 +1,77 @@
+{
+    "name": "@o2s/integrations.mocked-vercel",
+    "version": "0.1.0",
+    "private": false,
+    "license": "MIT",
+    "description": "Mocked integration for O2S on Vercel, replacing in-memory cart storage with PostgreSQL via Drizzle ORM.",
+    "o2sModules": [
+        "carts"
+    ],
+    "keywords": [
+        "o2s",
+        "integration",
+        "mocked",
+        "vercel",
+        "postgres",
+        "drizzle"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/o2sdev/openselfservice.git",
+        "directory": "packages/integrations/mocked-vercel"
+    },
+    "homepage": "https://github.com/o2sdev/openselfservice/tree/main/packages/integrations/mocked-vercel#readme",
+    "bugs": {
+        "url": "https://github.com/o2sdev/openselfservice/issues"
+    },
+    "exports": {
+        "./integration": "./dist/integration.js"
+    },
+    "files": [
+        "dist",
+        "drizzle"
+    ],
+    "scripts": {
+        "build": "tsc --preserveWatchOutput && tsc-alias",
+        "db:generate": "dotenv -e .env.local -- drizzle-kit generate",
+        "db:migrate": "dotenv -e .env.local -- drizzle-kit migrate",
+        "db:push": "dotenv -e .env.local -- drizzle-kit push",
+        "db:studio": "dotenv -e .env.local -- drizzle-kit studio",
+        "test": "vitest run",
+        "lint": "tsc --noEmit && eslint . --max-warnings=0",
+        "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,scss,json}\""
+    },
+    "dependencies": {
+        "@o2s/framework": "^1.20.1",
+        "@o2s/integrations.mocked": "^1.21.2",
+        "@o2s/utils.logger": "^1.2.3",
+        "@vercel/postgres": "^0.10.0",
+        "dotenv-cli": "^11.0.0",
+        "drizzle-orm": "^0.36.0"
+    },
+    "devDependencies": {
+        "@o2s/eslint-config": "*",
+        "@o2s/lint-staged-config": "*",
+        "@o2s/prettier-config": "*",
+        "@o2s/telemetry": "*",
+        "@o2s/typescript-config": "*",
+        "@o2s/vitest-config": "*",
+        "concurrently": "^9.2.1",
+        "drizzle-kit": "^0.30.0",
+        "eslint": "^9.39.4",
+        "prettier": "^3.8.1",
+        "tsc-alias": "^1.8.16",
+        "typescript": "^5.9.3"
+    },
+    "peerDependencies": {
+        "@nestjs/axios": "^4.0.1",
+        "@nestjs/common": "^11.0.16",
+        "@nestjs/config": "^4.0.2",
+        "@nestjs/core": "^11",
+        "rxjs": "^7",
+        "zod": "^3.25.4 || ^4.0.0"
+    },
+    "o2sTemplate": [
+        "o2s"
+    ]
+}

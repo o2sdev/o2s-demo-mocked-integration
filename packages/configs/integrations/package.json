@@ -24,7 +24,7 @@
     },
     "dependencies": {
         "@o2s/framework": "^1.20.1",
-        "@o2s/integrations.mocked": "^1.21.1"
+        "@o2s/integrations.mocked": "^1.21.2"
     },
     "devDependencies": {
         "@o2s/eslint-config": "*",
